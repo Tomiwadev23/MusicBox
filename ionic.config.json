@@ -1,0 +1,7 @@
+{
+  "name": "MusicBox",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}
