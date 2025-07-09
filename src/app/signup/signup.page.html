@@ -1,0 +1,51 @@
+
+
+
+<ion-content>
+  <div class="back-button">
+       <ion-buttons slot="start">
+          <ion-back-button default-href="/login" mode="md">ft</ion-back-button>
+      </ion-buttons>
+
+  </div>
+  <div class="form-container">
+          <div class="hold">
+
+        <span>MusicX</span>
+        <p>Create an Account</p>
+      </div>
+    <form  [formGroup]="myForm" (ngSubmit)="onSubmit()">
+
+  
+  
+      <ion-input type="email"label="Email" formControlName="email" label-placement="floating" fill="outline" placeholder="Enter Email" class="ionic-input"
+        mode="md" ></ion-input>
+      <ion-input type="password" formControlName="password" label="Password" label-placement="floating" fill="outline" placeholder="Enter Password"
+        class="ionic-input" mode="md">
+        <!-- <ion-input-password-toggle slot="end"> </ion-input-password-toggle> -->
+      </ion-input>
+       <!-- <ion-input type="password" label="password" label-placement="floating" fill="outline" placeholder="Enter Email" class="ionic-input"
+        mode="md" errorText="Invalid email"></ion-input> -->
+  <ion-checkbox  label-placement="end" formControlName="checkbox">I agree to the terms and conditions</ion-checkbox>
+  
+      <ion-button type="submit" mode="ios" [disabled]="myForm.invalid" (click)="goToConfirmPage()">Sign Up</ion-button>
+  
+  
+  
+
+  
+
+  
+    </form>
+  </div>
+
+
+<!-- 
+  <ion-modal trigger="open-modal">
+    <ng-template>
+
+    </ng-template>
+  </ion-modal> -->
+
+
+</ion-content>

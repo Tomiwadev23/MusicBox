@@ -1,0 +1,55 @@
+<!-- <ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>showItem</ion-title>
+  </ion-toolbar>
+</ion-header> -->
+
+<ion-content [fullscreen]="true">
+
+        <div class="header">
+         <div class="back-button">
+       <ion-buttons slot="start">
+          <ion-back-button default-href="/menu" mode="md">ft</ion-back-button>
+      </ion-buttons>
+       </div>
+
+  <h1>All Songs</h1>
+    </div>
+
+    <div class="music-grid">
+        <!-- Music Item 1 -->
+         @for(result of results; track result){
+               <div class="music-item">
+            <img src={{result.img}} alt="Album Cover" class="album-art">
+            <div class="music-info">
+                <div class="song-name">{{result.artist}}</div>
+                <div class="artist-name">{{result.song}}</div>
+            </div>
+        </div>
+
+         }
+   
+<!-- 
+        Music Item 2 -->
+        <!-- <div class="music-item">
+            <img src="https://i.scdn.co/image/ab67616d00001e02c08d5fa5c0f1a834acef5100" alt="Album Cover" class="album-art">
+            <div class="music-info">
+                <div class="song-name">Save Your Tears</div>
+                <div class="artist-name">The Weeknd</div>
+            </div>
+        </div> -->
+
+        <!-- Music Item 3 -->
+        <!-- <div class="music-item">
+            <img src="https://i.scdn.co/image/ab67616d00001e0268e3a5a4b8c2c9b6a3b7e0d5" alt="Album Cover" class="album-art">
+            <div class="music-info">
+                <div class="song-name">Levitating</div>
+                <div class="artist-name">Dua Lipa</div>
+            </div>
+        </div> -->
+
+        <!-- Add more items as needed -->
+        <!-- You would typically loop through your data here -->
+    </div>
+
+</ion-content>

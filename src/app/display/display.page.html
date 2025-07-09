@@ -1,0 +1,46 @@
+
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>About</ion-title>
+     <ion-buttons slot="start">
+          <ion-back-button default-href="/menu" mode="md"></ion-back-button>
+        </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+
+
+<ion-content [fullscreen]="true">
+  <div class="info"[style.background-image]="'url(' + genre()?.backImage +')'">
+    
+    <div class="name">
+      <div class="inner">
+        <h1 class="artist-name">
+        <!-- {{genre()?.artist}} -->
+        </h1>
+        <p class="song-name">
+        {{genre()?.song}}
+        </p>
+        <span></span>
+      </div>
+ <div class="icon" >
+                <ion-icon name="add-circle" slot="end" class="addbutn"></ion-icon>
+              </div>
+   
+
+      <div class="play">
+        <ion-icon name="play-circle" slot="end" class="playbtn"></ion-icon>
+
+      </div>
+
+    </div>
+  </div>
+
+  <div class="about">
+    <p class="about-p">
+    </p>
+  </div>
+    <!-- <ion-button (click)='dataService.delDoc(album().id)'>
+    delete shit
+  </ion-button> -->
+</ion-content>

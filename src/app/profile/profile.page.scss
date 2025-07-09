@@ -1,0 +1,206 @@
+ .empty{
+    width:100%;
+    height:35%;
+     background:linear-gradient(135deg,  #8A2BE2,#1E90FF);
+    margin: 0 auto;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    position:relative;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content:center;
+ }
+ .back-button{
+    width: 100%;
+    height:20px;
+ 
+    // margin:-20px auto 0 auto;
+    position: absolute;
+    top:0;
+    // place-content: center;
+ }
+ .first{
+    width:90%;
+    height:73.59px;
+   //  background-color:red;
+    margin: 0 auto ;
+    position: absolute;
+    bottom:-55px;
+    right :20px;
+    border-radius:20px;
+   //  padding-top:20px;
+    display:flex;
+    align-items: center;
+    justify-content:center;
+   //  flex-direction: column;
+   
+
+    overflow:hidden;
+   //  padding:0 10px 0 10px;
+ }
+ .profile{
+    width:120px;
+    height:120px;
+    border-radius: 50%;
+    background-image:url('/assets/6lack.jpeg');
+    background-position: center;
+    background-size: cover;
+        border:3px solid;
+ }
+
+ .name{
+    min-width: 140px;
+    height:25px;
+    align-items: center;
+    display: flex;
+    text-align:center;
+    justify-content: center;
+
+
+    
+ }
+ .about{
+    width:60%;
+    height:70%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+ }
+ .edit{
+   // background-color: green;
+   width:50px;
+   height:50px;
+   position: absolute;
+   right:12px;
+   top:6px;
+   display:flex;
+   justify-content: center;
+   align-items:center;
+   text-align: center;
+ }
+ .edited{
+   width:40px;
+   height:40px;
+ }
+ .email{
+   
+    width:200px;
+    height:25px;align-items: center;
+    display: flex;
+    text-align:center;
+    justify-content: center;
+
+ }
+.second{
+    width:90%;
+     background-color:#33353b;
+    height:294px ;
+    margin: 73px auto 0 auto;
+    border-radius:20px;
+   overflow: hidden;
+}
+.third{
+    width:90%;
+     background-color:#33353b;
+    height:10% ;
+    margin: 22px auto 0 auto;
+    border-radius:20px;
+    display:flex;
+    align-items: center;
+   //  justify-content:space-between;
+   //  padding:0 10px 0 10px;
+
+
+}
+.circle{
+   // background-color: #1E90FF;
+     width:50px;
+   height:50px;
+   display: flex;
+   align-items:center;
+   justify-content: center;
+
+}
+.carry{
+     width:100%;
+     background-color:#33353b;
+    height:73.59px;
+   //  margin: 27px auto 0 auto;
+   //  border-radius:20px;
+    display:flex;
+    align-items: center;
+    justify-content:space-between;
+    padding:0 10px 0 10px;
+   //  background-color: silver;
+
+
+}
+.darry{
+     width:100%;
+     background-color:#33353b;
+    height:73.59px;
+   //  margin: 27px auto 0 auto;
+    border-radius:20px;
+    display:flex;
+    align-items: center;
+    justify-content:space-between;
+    padding:0 10px 0 10px;
+   //  background-color: silver;
+
+
+}
+.dleft{
+      width:35px;
+   height:50px;
+}
+.dright{
+     width:20px;
+   height:40px;
+
+}
+.fname{
+   min-width:100px;
+   height:20px;
+      // background:yellow;
+      margin-left:-140px;
+display: flex;
+align-items: center;
+justify-content:start;
+text-align:start;
+font-size: 20px;
+   //  background-color:black;
+}
+.icon{
+      width:35px;
+   height:35px;
+    
+         display: flex;
+   align-items:center;
+   justify-content: center;
+
+
+}
+.left{
+    width:35px;
+   height:50px;
+
+}
+.right{
+   width:20px;
+   height:40px;
+
+}
+// ion-list{
+
+      
+// }
+// ion-list
+// ion-item{
+//       background-color: pink;
+//       height:60px;
+
+// }
+
+

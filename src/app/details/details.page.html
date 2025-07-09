@@ -1,0 +1,42 @@
+ <ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>About</ion-title>
+     <ion-buttons slot="start">
+          <ion-back-button default-href="/menu" mode="md">ft</ion-back-button>
+        </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+
+
+<ion-content [fullscreen]="true">
+  <div class="info"[style.background-image]="'url(' + sec()?.img +')'">
+   
+    <div class="name">
+      <div class="inner">
+        <h1 class="artist-name">
+   {{sec()?.artist}}
+        </h1>
+        <p class="song-name">
+      {{sec()?.song}}
+        </p>
+        <span>PlayList.MusicX</span>
+      </div>
+      
+
+
+      <div class="play">
+        <ion-icon name="play-circle" slot="end" class="playbtn"></ion-icon>
+
+      </div>
+
+    </div>
+  </div>
+
+  <div class="about">
+    <p class="about-p">
+      {{sec()?.about}}
+    </p>
+  </div>
+
+</ion-content>

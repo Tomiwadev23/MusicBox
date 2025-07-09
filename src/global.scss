@@ -25,13 +25,70 @@
 @import "@ionic/angular/css/text-transformation.css";
 @import "@ionic/angular/css/flex-utils.css";
 
-/**
- * Ionic Dark Mode
- * -----------------------------------------------------
- * For more info, please see:
- * https://ionicframework.com/docs/theming/dark-mode
- */
 
-/* @import "@ionic/angular/css/palettes/dark.always.css"; */
+@import "@ionic/angular/css/palettes/dark.always.css"; 
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
 @import '@ionic/angular/css/palettes/dark.system.css';
+
+html {
+  --ion-dynamic-font: var(--ion-default-dynamic-font);
+  --ion-font-family: sans-serif;
+}
+
+body{
+    font-family: sans-serif;
+}
+
+
+   .signup-alert {
+  // --background: linear-gradient(to right, #4facfe 0%, #00f2fe 100%);
+  --color: white;
+  
+  .alert-wrapper {
+    border-radius: 20px;
+
+  }
+  
+  .alert-title {
+    color: white;
+    font-weight: bold;
+  }
+  
+  .alert-button {
+    color: white;
+    border-top: 1px solid rgba(255,255,255,0.3);
+  }
+}
+
+// /* In your global.scss */
+// ion-alert {
+//   --background: #f4f4f4;
+//   --button-color: #3880ff;
+//   --color: #333;
+ 
+  
+//  
+//   .alert.message{
+//     background-color: red;
+//   }
+// }
+// .alert-confirm-btn{
+//   background-color: red;
+
+// }
+//  .alert-head {
+//     background-color: var(--ion-color-primary);
+//     color: white;
+//     width:300px;
+//     height: 200px;
+//     background-image: url('/assets/6lack.jpeg');
+//     background-position: center;
+//     background-size: cover;
+//   }
+//    .alert-message {
+//     color: white;
+//     font-size:30px;
+//     width:300px;
+//     height: 200px;
+
+//   }

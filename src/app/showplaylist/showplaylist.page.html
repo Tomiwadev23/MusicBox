@@ -1,0 +1,32 @@
+<!-- <ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>showplaylist</ion-title>
+  </ion-toolbar>
+</ion-header> -->
+
+<ion-content [fullscreen]="true">
+         <div class="header">
+         <div class="back-button">
+       <ion-buttons slot="start">
+          <ion-back-button default-href="/menu" mode="md">ft</ion-back-button>
+      </ion-buttons>
+       </div>
+
+  <h1>All Songs</h1>
+    </div>
+
+    <div class="music-grid">
+        <!-- Music Item 1 -->
+         @for(pla of plas; track pla){
+               <div class="music-item">
+            <img src={{pla.img}} alt="Album Cover" class="album-art">
+            <div class="music-info">
+                <div class="song-name">{{pla.artist}}</div>
+                <div class="artist-name">{{pla.song}}</div>
+            </div>
+        </div>
+
+         }
+    </div>
+
+</ion-content>

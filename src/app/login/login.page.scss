@@ -1,0 +1,155 @@
+.form-container{
+  display: flex;
+  min-height : 100vh;
+  //  justify-content: center;
+   align-items:center;
+  flex-direction: column;
+ 
+  padding-top:50px;
+
+}
+.wrapper{
+  // // background-color: purple;
+  // align-items: center;
+  // justify-content: center;
+  // padding:15px 0;
+  // height:500px;
+
+
+}
+
+.text{
+  // background-color: red;
+  width:300px;
+  height:50px;
+  display:flex;
+  text-align: center;
+  flex-direction: column;
+  margin-bottom: 20px;
+
+  
+
+
+
+  .class{
+    margin:0;
+    font-size: 25px;
+  }
+  p{
+    margin:0;
+}
+}
+label{
+  margin-bottom:5px;
+}
+
+.checkbox{
+
+}
+.checkbox-text{
+  font-size:14px;
+}
+.email-div{
+  margin-bottom:5px;
+
+
+}
+form{
+
+    width:90%;
+    height:400px;
+    // border:2px #06a4c0 solid;
+    border-radius: 20px;
+    display:flex;
+    flex-direction: column;
+    //  padding:18px 12px 12px 14px;
+     align-items: center;
+      justify-content:center;
+    
+
+}
+  ion-button{
+    --background:#1E90FF;
+    width:90%;
+    height:10px;
+    margin-top:30px;
+    color:white;
+    --background-activated: ; 
+    --background-focused: ;
+    --background-hover: ;
+    --background-activated-opacity:1;
+  }
+
+
+label{
+  margin:7px auto;
+
+}
+
+.checkbox-text{
+  margin: 0;
+}
+.option{
+  text-align: left;
+
+  width: 90%;
+  color:white;
+  display:flex;
+  justify-content: space-between;
+}
+.register-text{
+  margin:10px auto 0 auto;
+  // background-color: blue;
+  display:flex;
+  align-items: center;
+  justify-content: center;
+}
+
+    ion-input{
+    max-width:100%;
+    margin:0 auto 15px auto;
+    //  --outline-color-focused: black ;
+    --highlight-color-focused:#06a4c0;
+    --highlight-color:grey;
+        --highlight-color-invalid: ;
+        --highlight-color-valid:  ;
+            --border-width: 2px;
+    --border-color:grey; 
+
+  }
+.login-option{
+display:flex;
+flex-direction:row;
+align-items:center;
+justify-content: space-between;
+// background-color: green;
+width:80%;
+height:100px;
+
+  }
+  .inner-option{
+width: 50px;
+height:50px;
+
+border-radius:50%;
+  }
+
+.inner-option:nth-child(1){
+  background-image: url('https://i.pinimg.com/736x/26/c7/08/26c7089c48f9bb763e9cca3db502bd57.jpg');
+  background-position: center;
+  background-size:100%;
+
+}
+.inner-option:nth-child(2){
+  background-image: url('https://i.pinimg.com/736x/3a/35/8d/3a358df023050199d97d4ee04ca27f00.jpg');
+  background-position: center;
+  background-size:cover;
+
+}
+.inner-option:nth-child(3){
+  background-image: url('https://i.pinimg.com/736x/59/7f/11/597f11b631d7d94492f1adb95110cc44.jpg');
+  background-position: center;
+  background-size:cover;
+
+}
+

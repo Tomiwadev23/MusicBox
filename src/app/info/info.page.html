@@ -1,0 +1,47 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>About</ion-title>
+     <ion-buttons slot="start">
+          <ion-back-button default-href="/menu" mode="md">ft</ion-back-button>
+        </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+
+
+<ion-content [fullscreen]="true">
+  <div class="info" [style.background-image]="'url(' + album()?.img +')'">
+    
+    <div class="name">
+      <div class="inner">
+        <h1 class="artist-name">
+          {{album()?.artist}}
+        </h1>
+        <p class="song-name">
+          {{album()?.song}}
+        </p>
+        <span>PlayList.MusicX</span>
+      </div>
+ <div class="icon" (click)="this.dataService.addToPlay(album())">
+                <ion-icon name="add-circle" slot="end" class="addbutn"></ion-icon>
+              </div>
+   
+
+      <div class="play" (click)="this.dataService.openSpotify(album()?.track)">
+        <ion-icon name="play-circle" slot="end" class="playbtn"></ion-icon>
+        <!-- (click)="goToTry()" -->
+
+      </div>
+
+    </div>
+  </div>
+
+
+  <div class="about">
+    <p class="about-p">{{album()?.story}}
+    </p>
+  </div>
+    <!-- <ion-button (click)='dataService.delDoc(album().id)'>
+    delete shit
+  </ion-button> -->
+</ion-content>

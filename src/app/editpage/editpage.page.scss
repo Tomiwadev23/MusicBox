@@ -1,0 +1,153 @@
+ .picture{
+        width:200px;
+      height:200px;
+     background-image:url('/assets/6lack.jpeg');
+     background-position: center;
+     background-size: cover;
+    margin:0 auto;
+    border-radius: 50%;
+    border:3px solid;
+    // border-bottom-left-radius: 10px;
+    // border-bottom-right-radius: 10px;
+    position:absolute;
+    bottom:-80px;
+    left:100px;
+   //  position:relative;
+
+    // display:flex;
+    // flex-direction: column;
+    // align-items: center;
+    // justify-content:center;
+ }
+ .testing{
+   width:100%;
+   height:60px;
+
+
+ }
+ h1{
+
+ }
+
+ form{
+    background-color:#33353b;
+    
+    width:90%;
+    height:100px;
+    // border:2px #06a4c0 solid;
+    border-radius: 10px;
+    display:flex;
+    flex-direction: column;
+     padding:5px 5px 5px ;
+     align-items: center;
+      justify-content:center;
+      margin:50px auto 0 auto;
+      margin-top: 100px;
+    
+
+
+ }
+ .icon{
+   width:50px;
+   height:40px;
+   // background-color: black;
+   display:flex;
+   align-items:center;
+   border-radius:50%;
+ 
+      position: absolute;
+      bottom:0;
+      // top:10px;
+      right:-3px;
+ }
+ ion-icon{
+         width:70px;
+   height:60px;
+
+ }
+ .option1{
+   display:flex;
+   align-items: center;
+   p{
+      margin-left:20px;
+      font-size:20px;
+   }
+   
+ }
+ .up{
+   width:50px;
+   height:50px;
+ }
+ .down{
+   width:50px;
+   height:50px;
+   
+   
+ }
+ .option2{
+      display:flex;
+      align-items: center;
+         p{
+      margin-left:20px;
+      font-size:20px;
+   }
+
+ }
+ label{
+   font-size:20px;
+   margin-left: 20px;
+   color:white;
+ }
+ .overall{
+   height:100%;
+   width:100%;
+   
+   padding:10px;
+ }
+ .empty{
+       width:100%;
+    height:25%;
+     background:linear-gradient(135deg,  #8A2BE2,#1E90FF);
+    margin: 0 auto;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    position:relative;
+    display:flex;
+    // align-items: center;
+    // justify-content:center;
+
+
+ }
+ .over{
+    max-height:100vh;
+ }
+ .last{
+ 
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    margin-top:30px;
+ }
+ ion-input{
+        max-width:100%;
+    margin:0 auto 0 auto;
+    //  --outline-color-focused: black ;
+    --highlight-color-focused:#06a4c0;
+    --highlight-color:grey;
+        --highlight-color-invalid: ;
+        --highlight-color-valid:  ;
+        border-bottom: 1px solid grey;
+
+
+ }
+ ion-button{
+        --background:#1E90FF;
+    width:90%;
+    height:10px;
+    
+    color:white;
+    --background-activated: ; 
+    --background-focused: ;
+    --background-hover: ;
+    --background-activated-opacity:1;
+ }

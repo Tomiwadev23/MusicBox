@@ -1,0 +1,29 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>playlist</ion-title>
+      <ion-buttons slot="start">
+          <ion-back-button default-href="/menu" mode="md">ft</ion-back-button>
+      </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+ 
+     @for(item of itemSong; track item){
+    <div class="contain">
+  
+        <div class="imag"[style.background-image]="'url('+ item?.image +')'"></div>
+        <div class="abut">
+          <div class="ko">
+              <h1 class="text1">{{item?.name}}</h1>
+          <p class="text2">{{item?.song}}</p>
+         
+          </div>
+          <ion-icon name="close" (click)="this.dataService.deletePlaylist(item?.id)"></ion-icon>
+        
+        </div>
+     </div>
+  }
+   
+  
+</ion-content>

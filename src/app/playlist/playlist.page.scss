@@ -1,0 +1,62 @@
+
+  .contain{
+  width:90%;
+  height:70px;
+  display:flex;
+  flex-direction: row;
+  // background-color: aquamarine;
+  margin:0 auto;
+  align-items: center;
+ 
+
+}
+.imag{
+  width:22%;
+  height:95%;
+
+  background-position: center;
+  background-size: cover;
+  border-radius: 10px;
+
+
+
+}
+.text1{
+  font-size:20px;
+  margin:0;
+  font-weight: 600;
+}
+.text2{
+  font-size:15px;
+  margin:0;
+}
+.text3{
+  font-size:10px;
+  margin:0;
+}
+.abut{
+
+  width:70%;
+  height:100%;
+  margin-left:25px;
+   border-bottom: 1px white solid;
+   position: relative;
+
+  
+}
+ion-icon{
+  position:absolute;
+  right:20px;
+  bottom:25px;
+}
+
+
+
+
+
+
+
+
+
+
+

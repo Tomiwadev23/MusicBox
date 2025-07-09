@@ -1,0 +1,78 @@
+<!-- <ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>editpage</ion-title>
+  </ion-toolbar>
+</ion-header> -->
+
+<ion-content>
+     <div class="empty">
+            <div class="back-button">
+       <ion-buttons slot="start">
+          <ion-back-button default-href="profile" mode="md">ft</ion-back-button>
+      </ion-buttons>
+
+  </div>
+      <div class="picture">
+      <div class="icon"><ion-icon name="camera" id="open-modal"></ion-icon></div>
+    </div>
+      
+    </div>
+  <div class="over">
+ 
+
+    
+    <form [formGroup]="userName" (ngSubmit)="onSubmit()">
+  
+         <ion-input type="text"label="Username :"    placeholder="" class="ionic-input"
+          mode="md" formControlName="username" ></ion-input>
+
+                 <!-- <ion-input type="email"label="Email"   placeholder="" class="ionic-input"
+          mode="md" ></ion-input> -->
+  
+  
+
+    </form>
+      
+  
+    <div class="last">
+  
+      <ion-button (click)="onSubmit()">save change</ion-button>
+    </div>
+  </div>
+
+
+<ion-content class="ion-padding">
+ 
+
+  <ion-modal #modal trigger="open-modal" [initialBreakpoint]="0.25" [breakpoints]="[0, 0.25, 0.5, 0.75]">
+    <ng-template>
+      <ion-content>
+        <div class="overall">
+
+          <div class="option1" (click)="goToCamera()">
+            <ion-icon name="camera" class="up"></ion-icon>
+            <p>Take a picture</p>
+  
+          </div>
+            
+             <div class="option2">
+            <ion-icon name="images" class="down">
+              
+            </ion-icon>
+            <label>
+            Upload From Gallery
+                 <input type="file" style="display: none" (change)="handleFile($event)">
+
+            </label>
+         
+  
+          </div>
+        </div>
+      
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+</ion-content>
+
+
+</ion-content>

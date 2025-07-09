@@ -1,0 +1,106 @@
+
+<ion-content [fullscreen]="true">
+  <div class="empty">
+      <div class="back-button">
+       <ion-buttons slot="start">
+          <ion-back-button default-href="/menu" mode="md">ft</ion-back-button>
+      </ion-buttons>
+
+  </div>
+    <div class="about">
+      <div class="edit">
+<ion-icon name="create" class="edited"(click)="goToEdit()"></ion-icon>
+      </div>
+         <div class="profile"></div>
+<!-- @for(name of username;track name){ -->
+     
+      <div class="name"><p style="margin:0; font-size:22px;">{{this.authsService.updateUsername().displayName}}</p></div>
+
+
+
+
+      <div class="email"><p style="margin:0;">{{this.authsService.updateUsername().email}}</p> </div>
+    </div>
+ <div class='first'>
+      <div class="darry">
+      <div class="circle"><ion-icon name="color-palette" class="left"></ion-icon></div>
+<div class="fname">Display</div>
+<div class="icon"><ion-icon class="dright" name="arrow-forward"></ion-icon></div>
+    </div>
+
+ 
+ 
+ </div>
+
+  </div>
+   <div class="second"> 
+        <div class="carry">
+      <div class="circle"><ion-icon name="cog" class="left"></ion-icon></div>
+<div class="fname">Settings</div>
+<div class="icon"><ion-icon class="right" name="arrow-forward"></ion-icon></div>
+    </div>
+        <div class="carry">
+      <div class="circle"><ion-icon name="text" class="left"></ion-icon></div>
+<div class="fname">Language</div>
+<div class="icon"><ion-icon class="right" name="arrow-forward"></ion-icon></div>
+    </div>
+
+     <div class="carry">
+      <div class="circle"><ion-icon name="star-outline" class="left" size="larger"></ion-icon></div>
+<div class="fname">Go premium</div>
+<div class="icon"><ion-icon class="right" name="arrow-forward"></ion-icon></div>
+    </div>
+
+     <div class="carry">
+      <div class="circle"><ion-icon class="left"name="notifications-outline"></ion-icon></div>
+<div class="fname">Notifications</div>
+<div class="icon"><ion-icon class="right" name="arrow-forward"></ion-icon></div>
+    </div>
+
+ 
+
+ 
+    
+     <!-- <ion-list [inset]="true">
+    <ion-item [button]="true">
+      <ion-icon color="danger" slot="start" name="list-circle" size="large"></ion-icon>
+      <ion-label>General</ion-label>
+      <ion-note slot="end">6</ion-note>
+    </ion-item>
+    <ion-item [button]="true">
+      <ion-icon color="tertiary" slot="start" name="list-circle" size="large"></ion-icon>
+      <ion-label>Shopping</ion-label>
+      <ion-note slot="end">15</ion-note>
+    </ion-item>
+    <ion-item [button]="true">
+      <ion-icon color="success" slot="start" name="list-circle" size="large"></ion-icon>
+      <ion-label>Cleaning</ion-label>
+      <ion-note slot="end">3</ion-note>
+    </ion-item>
+    <ion-item [button]="true">
+      <ion-icon color="warning" slot="start" name="list-circle" size="large"></ion-icon>
+      <ion-label>Reminders</ion-label>
+      <ion-note slot="end">8</ion-note>
+    </ion-item>
+  </ion-list> -->
+
+</div>
+   <div class="third"(click)="this.authsService.handleSignOut()">
+    <div class="darry">
+      <div class="circle"><ion-icon name="log-out" class="dleft"></ion-icon></div>
+<div class="fname">Log out</div>
+<div class="icon"><ion-icon class="dright" name="arrow-forward"></ion-icon></div>
+    </div>
+
+ 
+    
+   </div>
+ 
+
+
+  <!-- <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">profile</ion-title>
+    </ion-toolbar>
+  </ion-header> -->
+</ion-content>

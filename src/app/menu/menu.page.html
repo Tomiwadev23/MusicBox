@@ -1,0 +1,573 @@
+<ion-tabs>
+
+  <ion-tab-bar slot="bottom">
+    <ion-tab-button tab="home">
+      <ion-icon name="home-outline"></ion-icon>
+      <ion-label>Home</ion-label>
+    </ion-tab-button>
+    <ion-tab-button tab="search">
+      <ion-icon name="search-outline"></ion-icon>
+      <ion-label>Search</ion-label>
+    </ion-tab-button>
+    <ion-tab-button tab="downloads">
+      <ion-icon name="download-outline"></ion-icon>
+      <ion-label>Downloads</ion-label>
+    </ion-tab-button>
+    <ion-tab-button tab="profile">
+<ion-icon name="albums"></ion-icon>
+      <ion-label>Library</ion-label>
+    </ion-tab-button>
+
+  </ion-tab-bar>
+
+
+  <ion-tab tab="home">
+    <ion-header class="ion-header-class">
+      <div class="heading">
+        <div>
+  <h1 class="design">Welcome Back!</h1>
+        </div>
+          
+            <ion-avatar (click)="goToProfile()" style="position:relative;">
+          <img src="assets/ire.jpeg" alt="">
+          <!-- <ion-badge color="danger"></ion-badge> -->
+           <div style="background-color:#f45757;width:10px; height:10px; position: absolute;border-radius: 50%;top:0;right: 0;"></div>
+        </ion-avatar>
+        
+      </div>
+
+    <ion-segment>
+  <ion-segment-button value="All" content-id="All">
+    <ion-label>All</ion-label>
+  </ion-segment-button>
+  <ion-segment-button value="RnB" content-id="RnB">
+    <ion-label>RnB</ion-label>
+  </ion-segment-button>
+  <ion-segment-button value="Hip Hop" content-id="Hip Hop">
+    <ion-label>Hip Hop</ion-label>
+  </ion-segment-button>
+    <ion-segment-button value="jazz" content-id="jazz">
+    <ion-label>Jazz</ion-label>
+  </ion-segment-button>
+</ion-segment>
+<ion-segment-view>
+  <ion-segment-content id="All">
+     <ion-content>
+      <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
+        <ion-refresher-content></ion-refresher-content>
+      </ion-refresher>
+
+
+
+      <ion-item [button]="true" lines="none">
+        <ion-label>Trending Songs...</ion-label>
+        <ion-note slot="end" (click)="goToShowItem()">
+          Show all
+        </ion-note>
+      </ion-item>
+  
+        @if(!loaded){
+           <div class="scroll-container">
+    
+        <div >
+          <div class="scroll-item" >
+            <ion-skeleton-text animated style="width: 100%">
+
+            </ion-skeleton-text>
+       
+          </div>
+        </div>
+
+               <div >
+          <div class="scroll-item" >
+            <ion-skeleton-text animated style="width: 100%">
+
+            </ion-skeleton-text>
+         
+
+          </div>
+        </div>
+                     <div >
+          <div class="scroll-item" >
+            <ion-skeleton-text animated style="width: 100%">
+
+            </ion-skeleton-text>
+        
+          </div>
+        </div>
+
+                     <div >
+          <div class="scroll-item" >
+            <ion-skeleton-text animated style="width: 100%">
+
+            </ion-skeleton-text>
+         
+
+          </div>
+        </div>
+                     <div >
+          <div class="scroll-item" >
+            <ion-skeleton-text animated style="width: 100%">
+
+            </ion-skeleton-text>
+      
+          </div>
+        </div>
+
+             <!-- <div (click) = "goToAbout(songs.id)">
+          <div class="scroll-item" [style.background-image]="'url(' + songs.image +')'">
+            <div class="inner">
+              <h6>{{songs.artist}}</h6>
+              <p>{{songs.song}}</p>
+            </div>
+
+          </div>
+        </div> -->
+        
+        </div>
+        }@else{
+         <div class="scroll-container">
+        @for(songs of tommySongs; track songs){
+        <div (click) = "goToAbout(songs.id)">
+          <div class="scroll-item" [style.background-image]="'url(' + songs.image +')'">
+            <div class="inner">
+              <h6>{{songs.artist}}</h6>
+              <p>{{songs.song}}</p>
+            </div>
+
+          </div>
+        </div>
+        }
+           @empty{
+          <div class="empty">
+          no data found
+
+          </div>
+        }
+        </div>
+        }
+
+
+      
+
+
+      <ion-item [button]="true" lines="none">
+        <ion-label>Recommended For You
+
+        </ion-label>
+        <ion-note slot="end" (click)="goToRecommended()">
+          Show all
+        </ion-note>
+      </ion-item>
+      @if(loaded){
+              <div class="wrapper">
+        @for(music of secondMusic ; track music){
+        <div class="Rp" (click)="goToInfo(music.id)">
+          <div class="bg-img" [style.background-image]="'url(' + music.image + ')'">
+
+          </div>
+          <div class="Rp-div2">
+            <h6>{{music?.artist}}</h6>
+            <p>{{ music?.song}}</p>
+
+          </div>
+        </div>
+
+
+        }
+      </div>
+      }@else{
+   
+     <div class="wrapper">
+       
+        <div class="Rp" >
+          <div class="bg-img" >
+  <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+          </div>
+          <div class="Rp-div2">
+            <h6>  <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text></h6>
+            <p>  <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text></p>
+
+          </div>
+        </div>
+
+              <div class="Rp" >
+          <div class="bg-img" >
+  <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+          </div>
+          <div class="Rp-div2">
+            <h6>  <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text></h6>
+            <p>  <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text></p>
+
+          </div>
+        </div>
+
+              <div class="Rp" >
+          <div class="bg-img" >
+  <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+          </div>
+          <div class="Rp-div2">
+            <h6>  <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text></h6>
+            <p>  <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text></p>
+
+          </div>
+        </div>
+
+              <div class="Rp" >
+          <div class="bg-img" >
+  <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+          </div>
+          <div class="Rp-div2">
+            <h6>  <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text></h6>
+            <p>  <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text></p>
+
+          </div>
+        </div>
+      </div>
+    
+    
+
+      }
+         <ion-item [button]="true" lines="none">
+        <ion-label>My Playlist</ion-label>
+        <ion-note slot="end" (click)="goToplas()">
+          Show all
+        </ion-note>
+      </ion-item>
+        
+
+
+      @if(loaded){
+        
+   
+    <div class="holder">
+        @for(jams of thirdjams; track jams){
+
+        <div class="cons" (click)="goToDetails(jams.id)">
+          <div class="back-img" [style.background-image]="'url('+ jams?.image +')'">
+
+          </div>
+          <div class="cons-div2">
+            <h6>{{jams?.song}}</h6>
+            <p>{{ jams?.artist}}</p>
+          </div>
+
+
+
+
+        </div>
+        }
+     
+      </div>
+      }@else{
+         <div class="holder">
+       
+
+        <div class="con">
+          <div class="back-img" >
+<ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+          </div>
+          <div class="cons-div2">
+            <h6><ion-skeleton-text animated style="width: 70%;align-self: center;"></ion-skeleton-text></h6>
+            <p><ion-skeleton-text animated style="width: 80%;align-self: center;"></ion-skeleton-text></p>
+          </div>
+
+
+
+
+        </div>
+        
+
+            <div class="con">
+          <div class="back-img" >
+<ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+          </div>
+          <div class="cons-div2">
+            <h6><ion-skeleton-text animated style="width: 70%;align-self: center;"></ion-skeleton-text></h6>
+            <p><ion-skeleton-text animated style="width: 80%;align-self: center;"></ion-skeleton-text></p>
+          </div>
+
+
+
+
+        </div>
+
+
+            <div class="con">
+          <div class="back-img" >
+<ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+          </div>
+          <div class="cons-div2">
+            <h6><ion-skeleton-text animated style="width: 70%;align-self: center;"></ion-skeleton-text></h6>
+            <p><ion-skeleton-text animated style="width: 80%;align-self: center;"></ion-skeleton-text></p>
+          </div>
+
+
+
+
+        </div>
+            <div class="con">
+          <div class="back-img" >
+<ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+          </div>
+          <div class="cons-div2">
+            <h6><ion-skeleton-text animated style="width: 70%;align-self: center;"></ion-skeleton-text></h6>
+            <p><ion-skeleton-text animated style="width: 80%;align-self: center;"></ion-skeleton-text></p>
+          </div>
+
+
+
+
+        </div>
+      </div>
+
+      }
+      @if(loaded){
+  
+      <div class="random-container">
+        @for(fans of fansPage; track fans){
+        <div class="random"  (click)="goToLast(fans?.id)" [style.background-image]="'url('+ fans?.backImage +')'">
+          <div class="first-random-div">
+            <div class="picture" [style.background-image]="' url('+ fans?.image +')'">
+
+            </div>
+            <div class="text">
+
+
+              <div class="texter">
+                <p class="text-div">
+                  {{fans?.description}}
+
+                </p>
+                <span>{{fans?.type}}</span>
+
+
+              </div>
+
+              <div class="icon">
+                <ion-icon name="add-circle" slot="end" class="addbutn"></ion-icon>
+              </div>
+            </div>
+
+          </div>
+          <p class="random-text">{{fans?.note}}</p>
+          <div class="down">
+            <ion-chip>
+              <ion-icon name="volumeHigh"></ion-icon>
+
+              <ion-label>preview playlist</ion-label>
+            </ion-chip>
+            <div class="playbtn">
+              <ion-icon name="play-circle">
+              </ion-icon>
+            </div>
+          </div>
+        </div>
+        }
+
+      </div>
+
+      }@else{
+
+      <div class="random-container">
+        @for(fans of fansPage; track fans){
+        <div class="random" >
+          <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+          <div class="first-random-div">
+            <div class="picture" [style.background-image]="' url('+ fans?.image +')'">
+
+            </div>
+            <div class="text">
+
+
+              <div class="texter">
+                <p class="text-div">
+                  {{fans?.description}}
+
+                </p>
+                <span>{{fans?.type}}</span>
+
+
+              </div>
+
+              <div class="icon">
+                <ion-icon name="add-circle" slot="end" class="addbutn"></ion-icon>
+              </div>
+            </div>
+
+          </div>
+          <p class="random-text">{{fans?.note}}</p>
+          <div class="down">
+            <ion-chip>
+              <ion-icon></ion-icon>
+
+              <ion-label>preview playlist</ion-label>
+            </ion-chip>
+            <div class="playbtn">
+              <ion-icon name="play-circle">
+              </ion-icon>
+            </div>
+          </div>
+        </div>
+        }
+
+      </div>
+
+      }
+
+
+
+
+
+
+    </ion-content>
+    
+  </ion-segment-content>
+  <ion-segment-content id="RnB">RnB</ion-segment-content>
+  <ion-segment-content id="Hip Hop">Hip Hop</ion-segment-content>
+    <ion-segment-content id="jazz">Jazz</ion-segment-content>
+</ion-segment-view> 
+
+    </ion-header>
+   
+  </ion-tab>
+
+
+  <ion-tab tab="search">
+    <ion-content>
+      <ion-searchbar showCancelButton="focus" class="custom" mode="md" aria-placeholder="search"></ion-searchbar>
+      <h4 class="ser">Recent Search...</h4>
+      <div class="show-search">
+        @for(search of recentSearch; track search){
+        <div class=" show-item">
+          <ion-avatar>
+            <img src="{{search.img}}" alt="">
+          </ion-avatar>
+          <div class="about">
+            <p class="artist-name">{{search.name}}</p>
+            <img src="assets/three.png" alt="" class="artist-image">
+
+          </div>
+        </div>
+        }
+
+
+
+
+        <!-- <div class=" show-item">
+          <ion-avatar>
+            <img src="" alt="">
+          </ion-avatar>
+          <div class="about">
+            <p class="artist-name">kendrick Lamar</p>
+<img src="assets/menu.png" alt="" class="artist-image">
+          </div>
+        </div>
+         <div class=" show-item">
+          <ion-avatar>
+            <img src="" alt="">
+          </ion-avatar>
+          <div class="about">
+            <p class="artist-name">kendrick Lamar</p>
+           
+          </div>
+        </div>
+         <div class=" show-item">
+          <ion-avatar>
+            <img src="" alt="">
+          </ion-avatar>
+          <div class="about">
+            <p class="artist-name">kendrick Lamar</p>
+
+          </div>
+        </div> <div class=" show-item">
+          <ion-avatar>
+            <img src="" alt="">
+          </ion-avatar>
+          <div class="about">
+            <p class="artist-name">kendrick Lamar</p>
+
+          </div>
+        </div>
+         <div class=" show-item">
+          <ion-avatar>
+            <img src="" alt="">
+          </ion-avatar>
+          <div class="about">
+            <p class="artist-name">kendrick Lamar</p>
+
+          </div>
+        </div>
+         <div class=" show-item">
+          <ion-avatar>
+            <img src="" alt="">
+          </ion-avatar>
+          <div class="about">
+            <p class="artist-name">kendrick Lamar</p>
+
+          </div>
+        </div> -->
+
+      </div>
+      <!-- <div class="genre" >
+        @for(genre of kinds; track genre){
+ <div class="type" [style.background-image]="'url('+ genre?.photo +')'">
+        <ion-chip class="title">
+          <p class="genre-name">{{genre.name}}</p>
+
+        </ion-chip>  
+        </div>
+        }
+       
+        
+      </div> -->
+
+
+    </ion-content>
+  </ion-tab>
+
+
+  <ion-tab tab="downloads">
+    <ion-content>
+    <div class="top-header">
+
+    </div>
+    <h1>Downloads</h1>
+    
+    </ion-content>
+  </ion-tab>
+  <ion-tab tab="profile">
+    <ion-header>
+      <ion-toolbar>
+        <ion-title>
+          Library
+        </ion-title>
+      </ion-toolbar>
+    </ion-header>
+          <!-- <ion-header>
+  <ion-toolbar>
+    <ion-title>Library</ion-title>
+  </ion-toolbar>
+</ion-header> -->
+
+    <ion-content>
+      <div class="over">
+      @for(play of plays; track play){
+         <div class="contain" (click)=" this.dataService.goToPlaylist($event)">
+        <div class="imag"[style.background-image]="'url('+ play?.image +')'"></div>
+        <div class="abut">
+          <div class="ko">
+              <h1 class="text1">{{play?.theme}}</h1>
+          <p class="text2"><span>{{play.no}}</span>songs</p>
+          <h6 class="text3">Playlist.MusicX</h6>
+          </div>
+        
+        </div>
+      </div>
+    
+      }
+      </div>
+     
+    </ion-content>
+  </ion-tab>
+</ion-tabs>

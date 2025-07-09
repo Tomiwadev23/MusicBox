@@ -1,0 +1,54 @@
+<ion-content>
+  <div class="form-container">
+ 
+   
+    <div class="text">
+    <p class="class">Welcome Back !</p>
+    <p>please enter your details to login</p>
+  </div>
+
+<form action=""[formGroup]='myForm'(ngSubmit)="onSubmit()">
+
+
+      <ion-input type="email"label="Email" formControlName="email" label-placement="floating" fill="outline" placeholder="Enter valid Email" class="ionic-input"
+        mode="md" ></ion-input>
+
+    
+      <ion-input type="password"label="Password" formControlName="password" label-placement="floating" fill="outline" placeholder="Enter Password(above 6) characters" class="ionic-input"
+        mode="md" ></ion-input>
+
+<div class="option">
+ <!-- <p class="checkbox-text">Forgot Password?</p> -->
+ <div> Forgot Password?</div> 
+ <div style="color:white; font-size:20px; font-weight:700; " (click)="goToSignUp()">Sign up</div>
+</div>
+   
+  
+
+
+
+  <ion-button type="submit" class="cta" [disabled]="myForm.invalid"> Login</ion-button>
+  
+
+
+<div class="login-option">
+  <div class="inner-option">
+
+  </div>
+    <div class="inner-option">
+  
+  </div>
+    <div class="inner-option"(click)="this.authsService.signInWithGoogle()">
+
+  </div>
+</div>
+  
+</form>
+   
+  </div>
+
+
+
+
+
+</ion-content>
