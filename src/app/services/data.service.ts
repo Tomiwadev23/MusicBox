@@ -1,9 +1,11 @@
 import { effect, inject, Injectable, OnInit, signal } from '@angular/core';
 import { collection, doc, addDoc, Firestore, getDoc, getDocs, updateDoc, setDoc, deleteDoc } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
-import { runTransaction } from "firebase/firestore";
+import { onSnapshot, runTransaction } from "firebase/firestore";
 import { Capacitor } from '@capacitor/core';
 import { Browser } from '@capacitor/browser';
+import { LoadingController } from '@ionic/angular/standalone';
+
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +13,7 @@ import { Browser } from '@capacitor/browser';
 export class DataService implements OnInit {
 
   router = inject(Router)
+  loadingCtrl=inject(LoadingController)
   db = inject(Firestore)
   playlists = signal<any[]>([]);
   showAllplaylists = signal<any[]>([]);
@@ -22,16 +25,19 @@ export class DataService implements OnInit {
   playSong = signal<any[]>([]);
   showplay = signal<any[]>([]);
   showAddusername = signal<any[]>([])
-  counter = signal<any>(0)
+  counter = signal<number>(0)
+
 
 
 
 
   constructor() {
+ 
 
 
   }
   async ngOnInit() {
+   await this.getAddSong()
   }
 
   async getPlaylists() {
@@ -166,9 +172,25 @@ export class DataService implements OnInit {
     await deleteDoc(doc(this.db, 'playlist', doId));
 
   }
+
+
   async deletePlaylist(id: string) {
     console.log(id)
     await deleteDoc(doc(this.db, 'AddPlay', id))
+// this.getAddSong()
+this.showLoading()
+  
+    
+
+  }
+   async showLoading() {
+    const loading = await this.loadingCtrl.create({
+      message: 'Deleting playlist...',
+      duration: 3000,
+    });
+
+    loading.present();
+    this.getAddSong()
   }
   goToLogin(event: MouseEvent) {
     event.preventDefault()
@@ -201,18 +223,30 @@ export class DataService implements OnInit {
   async getAddSong() {
 
     const dataref = collection(this.db, 'AddPlay')
-    const queshot = await getDocs(dataref)
-    const arr: any[] = [];
+    const unsubscribe =onSnapshot(dataref,(queshot)=>{
+  const arr: any[] = [];
     queshot.forEach((doc) => {
       arr.push(doc.data())
     })
     this.showplay.set(arr)
-
-   
+    console.log('fasi',this.showplay());
     this.counter.set(arr.length)
     this.updateToPlaylist()
+    })
+    this.unsubscribeGetAddSong = unsubscribe;
+
+    
+  
   
   }
+  // Add this to your component
+unsubscribeGetAddSong: any;
+
+ngOnDestroy() {
+  if (this.unsubscribeGetAddSong) {
+    this.unsubscribeGetAddSong();
+  }
+}
      async updateToPlaylist(){
     const ref = doc(this.db,'play','JmPDO5ku25HYP2BSN2QV');
     await updateDoc(ref,{no:this.counter()})

@@ -1,10 +1,14 @@
 import { inject, Injectable } from '@angular/core';
 import { AlertController} from '@ionic/angular/standalone';
+import{ActionSheetController}from '@ionic/angular/standalone';
+import { DataService } from './services/data.service';
 @Injectable({
   providedIn: 'root'
 })
 export class AlertService {
   alertCtrl=inject(AlertController)
+  actionSheetCtrl=inject(ActionSheetController)
+  dataService=inject(DataService)
 
   constructor() { }
    async presentAlert() {
@@ -43,4 +47,37 @@ export class AlertService {
 
     await alert.present();
   }
+    async presentActionSheet(id:any) {
+    const actionSheet = await this.actionSheetCtrl.create({
+      buttons: [
+        {
+          text: 'Delete',
+          role: 'destructive',
+          data: {
+            action: 'delete',
+          },
+           handler: () => {
+            this.dataService.deletePlaylist(id);
+             // Call your function here
+          },
+        },
+        {
+          text: 'Share',
+          data: {
+            action: 'share',
+          },
+        },
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          data: {
+            action: 'cancel',
+          },
+        },
+      ],
+    });
+
+    await actionSheet.present();
+  }
+
 }
