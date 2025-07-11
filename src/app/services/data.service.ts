@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { onSnapshot, runTransaction } from "firebase/firestore";
 import { Capacitor } from '@capacitor/core';
 import { Browser } from '@capacitor/browser';
+import {ToastController, LoadingController } from '@ionic/angular/standalone';
+
 
 @Injectable({
   providedIn: 'root'
@@ -170,10 +172,10 @@ export class DataService implements OnInit {
     await deleteDoc(doc(this.db, 'playlist', doId));
 
   }
-  async deletePlaylist(id: string) {
-    console.log(id)
-    await deleteDoc(doc(this.db, 'AddPlay', id))
-  }
+  // async deletePlaylist(id: string) {
+  //   console.log(id)
+  //   await deleteDoc(doc(this.db, 'AddPlay', id))
+  // }
   goToLogin(event: MouseEvent) {
     event.preventDefault()
     this.router.navigate(['/login'])
