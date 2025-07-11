@@ -4,17 +4,19 @@ import { Router } from '@angular/router';
 import { onSnapshot, runTransaction } from "firebase/firestore";
 import { Capacitor } from '@capacitor/core';
 import { Browser } from '@capacitor/browser';
-import { LoadingController } from '@ionic/angular/standalone';
+import {ToastController, LoadingController } from '@ionic/angular/standalone';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataService implements OnInit {
+  toastController=inject(ToastController)
+  vop=signal<any[]>([])
+  varry:any[]=[];
 
   router = inject(Router)
   loadingCtrl=inject(LoadingController)
-  db = inject(Firestore)
   playlists = signal<any[]>([]);
   showAllplaylists = signal<any[]>([]);
   recommendedSongs = signal<any[]>([]);
@@ -25,21 +27,22 @@ export class DataService implements OnInit {
   playSong = signal<any[]>([]);
   showplay = signal<any[]>([]);
   showAddusername = signal<any[]>([])
-  counter = signal<number>(0)
+  counter = signal<any>(0)
+  carrierSignal=signal<any>(null)
 
 
 
 
-
-  constructor() {
- 
+  constructor(private db:Firestore) {
 
 
   }
   async ngOnInit() {
-   await this.getAddSong()
+    await this.getAddSong()
+  
+    
   }
-
+  
   async getPlaylists() {
     const dataRef = collection(this.db, "playlist");
     const querysnapshot = await getDocs(dataRef);
@@ -172,26 +175,10 @@ export class DataService implements OnInit {
     await deleteDoc(doc(this.db, 'playlist', doId));
 
   }
-
-
-  async deletePlaylist(id: string) {
-    console.log(id)
-    await deleteDoc(doc(this.db, 'AddPlay', id))
-// this.getAddSong()
-this.showLoading()
-  
-    
-
-  }
-   async showLoading() {
-    const loading = await this.loadingCtrl.create({
-      message: 'Deleting playlist...',
-      duration: 3000,
-    });
-
-    loading.present();
-    this.getAddSong()
-  }
+  // async deletePlaylist(id: string) {
+  //   console.log(id)
+  //   await deleteDoc(doc(this.db, 'AddPlay', id))
+  // }
   goToLogin(event: MouseEvent) {
     event.preventDefault()
     this.router.navigate(['/login'])
@@ -204,7 +191,7 @@ this.showLoading()
     this.router.navigate(['signup'])
   }
 
-
+// changer=false;
 
 
   async addToPlay(data: any) {
@@ -213,10 +200,47 @@ this.showLoading()
       name: data.artist,
       image: data.image,
       song: data.song,
-      id: data.id
-    }
+      id: data.id,
+       }
     )
-    this.getAddSong()
+    this.toast()
+    // this.changer=true;
+    console.log(data)
+    this.updateChecker(data)
+
+   
+  }
+  async updateChecker(data:any){
+    const ref= doc(this.db,'playlist',data.id)
+    await updateDoc(ref,{added:true})
+    // console.log(data.);
+    
+  }
+
+    // async checkerMan(){
+  //   const share = collection(this.db,'AddPlay')
+  //    const querysnapshot = await getDocs(share);
+  //   const caty:any[]=[];
+  //   querysnapshot.forEach((doc)=>{
+  //     caty.push(doc.data())
+  //   })
+
+
+  // }
+ 
+
+
+   async toast() {
+    const toast = await this.toastController.create({
+      message: 'Added To Favorite',
+      duration: 2000,
+      position:'bottom',
+     icon: 'checkmark-circle',
+    cssClass: 'my-toast'
+    });
+
+    await toast.present();
+  
   }
   
 
@@ -232,6 +256,7 @@ this.showLoading()
     console.log('fasi',this.showplay());
     this.counter.set(arr.length)
     this.updateToPlaylist()
+    this.carrierSignal();
     })
     this.unsubscribeGetAddSong = unsubscribe;
 
@@ -261,7 +286,32 @@ ngOnDestroy() {
     await setDoc(ref, { username: uger }, { merge: true })
 
   }
+    async deletePlaylist(id: string) {
+    console.log(id)
+    const og = id
+    const ref=doc(this.db, 'AddPlay', id);
+    await deleteDoc(ref)
+    this.getAddSong()
+    this.showLoading()
+    this.updateDeleteChecker(og)
+    
+  }
+    async updateDeleteChecker(og:any){
+    const ref= doc(this.db,'playlist',og)
+    await updateDoc(ref,{added:false})
+    // console.log(data.);
+    
+  }
 
+
+  async showLoading() {
+    const loading = await this.loadingCtrl.create({
+      message: 'Deleting PLaylist...',
+      duration: 1000,
+    });
+
+    loading.present();
+  }
 
 
   async setDoc() {
@@ -281,6 +331,7 @@ async openSpotify(trackId:any) {
     window.open(spotifyWebUrl, '_blank');
   }
 }
+
 
 
 

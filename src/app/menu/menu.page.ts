@@ -1,8 +1,8 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, effect, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonContent,IonSegmentView,IonSegmentContent,IonThumbnail,IonSkeletonText,IonList,IonListHeader, IonHeader, IonTitle, IonToolbar,IonItem,IonLabel,IonAvatar,IonBadge,IonRefresher,IonRefresherContent,IonSegment,IonSegmentButton, IonNote,IonFooter,IonTab,IonTabs,IonTabButton,IonTabBar,IonIcon,IonCard,IonCardContent,IonCardTitle,IonCardSubtitle,IonCardHeader,IonChip,IonSearchbar} from '@ionic/angular/standalone';
-import { homeOutline,downloadOutline,personOutline,searchOutline,playCircle, addCircle,library, ellipsisVertical, albums, musicalNotes, volumeHigh } from 'ionicons/icons';
+import { homeOutline,downloadOutline,personOutline,searchOutline,playCircle, addCircle,library, ellipsisVertical, albums, musicalNotes, } from 'ionicons/icons';
 import { addIcons } from 'ionicons';
 import { DataService } from '../services/data.service';
 import { Router } from '@angular/router';
@@ -37,8 +37,13 @@ export class MenuPage implements OnInit{
   loaded =false;
   
   constructor() {
+    effect(()=>{
+      this.dataService.counter()
+       this.dataService.getAddSong()
+
+    })
       
-      addIcons({homeOutline,searchOutline,downloadOutline,albums,addCircle,volumeHigh,playCircle,musicalNotes,ellipsisVertical,library,personOutline,});
+      addIcons({homeOutline,searchOutline,downloadOutline,albums,addCircle,playCircle,musicalNotes,ellipsisVertical,library,personOutline,});
     }
 
 

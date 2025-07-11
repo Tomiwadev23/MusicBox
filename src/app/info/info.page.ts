@@ -1,8 +1,8 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, effect, inject, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonContent, IonHeader, IonTitle, IonToolbar,IonIcon,IonBackButton,IonButtons,IonButton } from '@ionic/angular/standalone';
-import {playCircle, addCircle } from 'ionicons/icons';
+import {playCircle, addCircle, checkmarkCircle } from 'ionicons/icons';
 import { addIcons } from 'ionicons';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DataService } from '../services/data.service';
@@ -18,21 +18,36 @@ export class InfoPage implements OnInit {
   router = inject(ActivatedRoute)
   dataService = inject(DataService)
   album = signal<any>(null)
+  camel:any;
+  destiny:any;
+  instantiated=false;
   constructor() {
-      addIcons({addCircle,playCircle}); }
+    effect(()=>{
+      if(this.instantiated){
 
-  ngOnInit() {
-    // this.dataService.openSpotify()
+        this.album()
+      
+        this.getSongData()
+      }else{
+        this.instantiated=true
+      }
+      this.album()
+    })
+      addIcons({checkmarkCircle,addCircle,playCircle}); }
+
+   async ngOnInit() {
     this.getSongData()
-
   }
+  async fera(){
+     this.album()
+  }
+
 
   async getSongData(){
     const id = this.router.snapshot.paramMap.get("id")
-    console.log(id)
     const singleDoc:any = await this.dataService.getSingleData(id)
     this.album.set(singleDoc)
-    console.log(singleDoc)
+
   }
 
 }
