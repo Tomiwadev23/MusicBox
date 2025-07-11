@@ -8,6 +8,9 @@
 </ion-header>
 
 <ion-content>
+   <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
  
      @for(item of itemSong; track item){
     <div class="contain">
@@ -19,11 +22,15 @@
           <p class="text2">{{item?.song}}</p>
          
           </div>
-          <ion-icon name="close" (click)="this.dataService.deletePlaylist(item?.id)"></ion-icon>
+          <ion-icon name="ellipsis-Vertical"  (click)="this.alertService.presentActionSheet(item?.id)"></ion-icon>
+     
+
+          <!-- (click)="this.dataService.deletePlaylist(item?.id)" -->
         
         </div>
      </div>
   }
+  <button  (click)="this.dataService.getAddSong()">click me</button>
    
   
 </ion-content>

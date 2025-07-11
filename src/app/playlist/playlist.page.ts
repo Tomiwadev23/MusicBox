@@ -1,35 +1,49 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar,IonAvatar,IonButtons,IonBackButton,IonIcon} from '@ionic/angular/standalone';
+import { IonContent,IonRefresher,RefresherCustomEvent, IonHeader, IonTitle, IonToolbar,IonAvatar,IonButtons,IonBackButton,IonIcon, IonButton, IonActionSheet, IonRefresherContent } from '@ionic/angular/standalone';
 import { Router } from '@angular/router';
 import { DataService } from '../services/data.service';
 import { addIcons } from 'ionicons';
-import{close} from 'ionicons/icons';
+import{ellipsisVertical} from 'ionicons/icons';
+import { AlertService } from '../alert.service';
 
 @Component({
   selector: 'app-playlist',
   templateUrl: './playlist.page.html',
   styleUrls: ['./playlist.page.scss'],
   standalone: true,
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule,IonAvatar,IonButtons,IonBackButton,IonIcon]
+  imports: [IonRefresherContent,IonRefresherContent, IonActionSheet, IonButton,IonContent,IonRefresher, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule,IonAvatar,IonButtons,IonBackButton,IonIcon]
 })
 export class PlaylistPage implements OnInit {
   itemSong:any[]=[]
   router=inject(Router)
   dataService=inject(DataService)
+  alertService=inject(AlertService)
 
   constructor() {
-        addIcons({close});
+        addIcons({ellipsisVertical});
    }
 
  async ngOnInit() {
-  
   await this.dataService.getAddSong()
 
-  this.itemSong= this.dataService.showplay()
+
+
+  
+  
+
+  this.itemSong= await this.dataService.showplay()
   console.log(this.dataService.showplay());
   }
+
+    handleRefresh(event: RefresherCustomEvent) {
+    setTimeout(() => {
+      this.dataService.getAddSong()
+      event.target.complete();
+    }, 2000);
+  }
+
 
 
 

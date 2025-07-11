@@ -1,11 +1,22 @@
 import { inject, Injectable } from '@angular/core';
+<<<<<<< HEAD
 import { AlertController,ToastController} from '@ionic/angular/standalone';
+=======
+import { AlertController} from '@ionic/angular/standalone';
+import{ActionSheetController}from '@ionic/angular/standalone';
+import { DataService } from './services/data.service';
+>>>>>>> b0d43b297fa3e67c9f0d2cd11b87dae1b1e4364c
 @Injectable({
   providedIn: 'root'
 })
 export class AlertService {
   alertCtrl=inject(AlertController)
+<<<<<<< HEAD
   toastController=inject(ToastController)
+=======
+  actionSheetCtrl=inject(ActionSheetController)
+  dataService=inject(DataService)
+>>>>>>> b0d43b297fa3e67c9f0d2cd11b87dae1b1e4364c
 
   constructor() { }
    async presentAlert() {
@@ -44,6 +55,7 @@ export class AlertService {
 
     await alert.present();
   }
+<<<<<<< HEAD
 
 
   
@@ -57,4 +69,39 @@ export class AlertService {
     await toast.present();
   
   }
+=======
+    async presentActionSheet(id:any) {
+    const actionSheet = await this.actionSheetCtrl.create({
+      buttons: [
+        {
+          text: 'Delete',
+          role: 'destructive',
+          data: {
+            action: 'delete',
+          },
+           handler: () => {
+            this.dataService.deletePlaylist(id);
+             // Call your function here
+          },
+        },
+        {
+          text: 'Share',
+          data: {
+            action: 'share',
+          },
+        },
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          data: {
+            action: 'cancel',
+          },
+        },
+      ],
+    });
+
+    await actionSheet.present();
+  }
+
+>>>>>>> b0d43b297fa3e67c9f0d2cd11b87dae1b1e4364c
 }

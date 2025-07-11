@@ -1,12 +1,9 @@
 import { effect, inject, Injectable, OnInit, signal } from '@angular/core';
 import { collection, doc, addDoc, Firestore, getDoc, getDocs, updateDoc, setDoc, deleteDoc } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
-import { runTransaction } from "firebase/firestore";
+import { onSnapshot, runTransaction } from "firebase/firestore";
 import { Capacitor } from '@capacitor/core';
 import { Browser } from '@capacitor/browser';
-import { AlertController,ToastController} from '@ionic/angular/standalone';
-import { addIcons } from 'ionicons';
-import { checkmarkCircle } from 'ionicons/icons';
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +14,7 @@ export class DataService implements OnInit {
   varry:any[]=[];
 
   router = inject(Router)
+  loadingCtrl=inject(LoadingController)
   db = inject(Firestore)
   playlists = signal<any[]>([]);
   showAllplaylists = signal<any[]>([]);
@@ -29,16 +27,15 @@ export class DataService implements OnInit {
   showplay = signal<any[]>([]);
   showAddusername = signal<any[]>([])
   counter = signal<any>(0)
-changer= false
+
 
 
 
   constructor() {
-addIcons({checkmarkCircle})
+
 
   }
   async ngOnInit() {
-  
   }
 
   async getPlaylists() {
@@ -173,7 +170,10 @@ addIcons({checkmarkCircle})
     await deleteDoc(doc(this.db, 'playlist', doId));
 
   }
-
+  async deletePlaylist(id: string) {
+    console.log(id)
+    await deleteDoc(doc(this.db, 'AddPlay', id))
+  }
   goToLogin(event: MouseEvent) {
     event.preventDefault()
     this.router.navigate(['/login'])
@@ -242,18 +242,30 @@ addIcons({checkmarkCircle})
   async getAddSong() {
 
     const dataref = collection(this.db, 'AddPlay')
-    const queshot = await getDocs(dataref)
-    const arr: any[] = [];
+    const unsubscribe =onSnapshot(dataref,(queshot)=>{
+  const arr: any[] = [];
     queshot.forEach((doc) => {
       arr.push(doc.data())
     })
     this.showplay.set(arr)
-
-   
+    console.log('fasi',this.showplay());
     this.counter.set(arr.length)
     this.updateToPlaylist()
+    })
+    this.unsubscribeGetAddSong = unsubscribe;
+
+    
+  
   
   }
+  // Add this to your component
+unsubscribeGetAddSong: any;
+
+ngOnDestroy() {
+  if (this.unsubscribeGetAddSong) {
+    this.unsubscribeGetAddSong();
+  }
+}
      async updateToPlaylist(){
     const ref = doc(this.db,'play','JmPDO5ku25HYP2BSN2QV');
     await updateDoc(ref,{no:this.counter()})
