@@ -1,8 +1,8 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, effect, inject, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonContent, IonHeader, IonTitle, IonToolbar,IonIcon,IonBackButton,IonButtons,IonButton } from '@ionic/angular/standalone';
-import {playCircle, addCircle } from 'ionicons/icons';
+import {playCircle, addCircle, checkmarkCircle } from 'ionicons/icons';
 import { addIcons } from 'ionicons';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DataService } from '../services/data.service';
@@ -18,14 +18,33 @@ export class InfoPage implements OnInit {
   router = inject(ActivatedRoute)
   dataService = inject(DataService)
   album = signal<any>(null)
+  camel:any;
+  destiny:any;
+  instantiated=false;
   constructor() {
-      addIcons({addCircle,playCircle}); }
+    effect(()=>{
+      if(this.instantiated){
+  this.assisted()
+      }else{
+        this.instantiated = true
+      }
+    
+    })
+      addIcons({checkmarkCircle,addCircle,playCircle}); }
 
-  ngOnInit() {
+   async ngOnInit() {
     // this.dataService.openSpotify()
     this.getSongData()
+    
+
 
   }
+ async assisted(){
+  this.destiny = await this.album().added
+  console.log('is this empty',this.destiny);
+  
+} 
+ 
 
   async getSongData(){
     const id = this.router.snapshot.paramMap.get("id")

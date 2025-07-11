@@ -40,24 +40,51 @@ body{
 }
 
 
-   .signup-alert {
-  // --background: linear-gradient(to right, #4facfe 0%, #00f2fe 100%);
-  --color: white;
+//    .signup-alert {
+//   // --background: linear-gradient(to right, #4facfe 0%, #00f2fe 100%);
+//   --color: white;
   
-  .alert-wrapper {
-    border-radius: 20px;
+//   .alert-wrapper {
+//     border-radius: 20px;
 
-  }
+//   }
   
-  .alert-title {
-    color: white;
-    font-weight: bold;
-  }
+//   .alert-title {
+//     color: white;
+//     font-weight: bold;
+//   }
   
-  .alert-button {
-    color: white;
-    border-top: 1px solid rgba(255,255,255,0.3);
-  }
+//   .alert-button {
+//     color: white;
+//     border-top: 1px solid rgba(255,255,255,0.3);
+//   }
+//   .success-toast {
+//   --background: #4CAF50;
+//   --color: #ffffff;
+// }
+
+// .error-toast {
+//   --background: #f44336;
+//   --color: #ffffff;
+// }
+// }
+.my-toast::part(container) {
+  background: linear-gradient(to right,#8A2BE2,#1E90FF,#8A2BE2);
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+}
+
+.my-toast::part(header),
+.my-toast::part(message) {
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.my-toast::part(icon) {
+  color: white;
+  font-size: 24px;
+  margin-right: 12px;
 }
 
 // /* In your global.scss */

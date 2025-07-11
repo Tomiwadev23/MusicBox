@@ -4,11 +4,17 @@ import { Router } from '@angular/router';
 import { runTransaction } from "firebase/firestore";
 import { Capacitor } from '@capacitor/core';
 import { Browser } from '@capacitor/browser';
+import { AlertController,ToastController} from '@ionic/angular/standalone';
+import { addIcons } from 'ionicons';
+import { checkmarkCircle } from 'ionicons/icons';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataService implements OnInit {
+  toastController=inject(ToastController)
+  vop=signal<any[]>([])
+  varry:any[]=[];
 
   router = inject(Router)
   db = inject(Firestore)
@@ -23,15 +29,16 @@ export class DataService implements OnInit {
   showplay = signal<any[]>([]);
   showAddusername = signal<any[]>([])
   counter = signal<any>(0)
-
+changer= false
 
 
 
   constructor() {
-
+addIcons({checkmarkCircle})
 
   }
   async ngOnInit() {
+  
   }
 
   async getPlaylists() {
@@ -166,10 +173,7 @@ export class DataService implements OnInit {
     await deleteDoc(doc(this.db, 'playlist', doId));
 
   }
-  async deletePlaylist(id: string) {
-    console.log(id)
-    await deleteDoc(doc(this.db, 'AddPlay', id))
-  }
+
   goToLogin(event: MouseEvent) {
     event.preventDefault()
     this.router.navigate(['/login'])
@@ -182,7 +186,7 @@ export class DataService implements OnInit {
     this.router.navigate(['signup'])
   }
 
-
+// changer=false;
 
 
   async addToPlay(data: any) {
@@ -191,10 +195,47 @@ export class DataService implements OnInit {
       name: data.artist,
       image: data.image,
       song: data.song,
-      id: data.id
-    }
+      id: data.id,
+       }
     )
-    this.getAddSong()
+    this.toast()
+    // this.changer=true;
+    console.log(data)
+    this.updateChecker(data)
+
+   
+  }
+  async updateChecker(data:any){
+    const ref= doc(this.db,'playlist',data.id)
+    await updateDoc(ref,{added:true})
+    // console.log(data.);
+    
+  }
+
+    // async checkerMan(){
+  //   const share = collection(this.db,'AddPlay')
+  //    const querysnapshot = await getDocs(share);
+  //   const caty:any[]=[];
+  //   querysnapshot.forEach((doc)=>{
+  //     caty.push(doc.data())
+  //   })
+
+
+  // }
+ 
+
+
+   async toast() {
+    const toast = await this.toastController.create({
+      message: 'Added To Favorite',
+      duration: 2000,
+      position:'bottom',
+     icon: 'checkmark-circle',
+    cssClass: 'my-toast'
+    });
+
+    await toast.present();
+  
   }
   
 
@@ -226,6 +267,13 @@ export class DataService implements OnInit {
     const ref = doc(this.db, 'New', 'PG8P0FftkrfkqhC9dKou')
     await setDoc(ref, { username: uger }, { merge: true })
 
+  }
+    async deletePlaylist(id: string) {
+    console.log(id)
+    const ref=doc(this.db, 'AddPlay', id);
+    await deleteDoc(ref)
+    this.getAddSong()
+    
   }
 
 
