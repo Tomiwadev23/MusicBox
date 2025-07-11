@@ -1,11 +1,12 @@
 import { inject, Injectable } from '@angular/core';
 import { AlertController,ToastController} from '@ionic/angular/standalone';
-import{ActionSheetController}from '@ionic/angular/standalone';
+import{ActionSheetController,LoadingController}from '@ionic/angular/standalone';
 import { DataService } from './services/data.service';
 @Injectable({
   providedIn: 'root'
 })
 export class AlertService {
+  loadingCtrl=inject(LoadingController)
   alertCtrl=inject(AlertController)
   toastController=inject(ToastController)
   actionSheetCtrl=inject(ActionSheetController)
@@ -59,6 +60,7 @@ export class AlertService {
           },
            handler: () => {
             this.dataService.deletePlaylist(id);
+         
              // Call your function here
           },
         },

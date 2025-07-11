@@ -29,6 +29,7 @@ export class DataService implements OnInit {
   showplay = signal<any[]>([]);
   showAddusername = signal<any[]>([])
   counter = signal<any>(0)
+  carrierSignal=signal<any>(null)
 
 
 
@@ -38,8 +39,12 @@ export class DataService implements OnInit {
 
   }
   async ngOnInit() {
+    await this.getAddSong()
+    await this.getSingleData(this.vax)
+      console.log((window as any).firebase); 
+    
   }
-
+  
   async getPlaylists() {
     const dataRef = collection(this.db, "playlist");
     const querysnapshot = await getDocs(dataRef);
@@ -127,8 +132,10 @@ export class DataService implements OnInit {
     console.log(this.playSong())
 
   }
+  vax:any;
 
   async getSingleData(id: any) {
+    this.vax=id;
     const docRef = doc(this.db, 'playlist', id)
     const querysnapshot = (await getDoc(docRef)).data()
     return querysnapshot
@@ -253,6 +260,7 @@ export class DataService implements OnInit {
     console.log('fasi',this.showplay());
     this.counter.set(arr.length)
     this.updateToPlaylist()
+    this.carrierSignal();
     })
     this.unsubscribeGetAddSong = unsubscribe;
 
@@ -284,12 +292,30 @@ ngOnDestroy() {
   }
     async deletePlaylist(id: string) {
     console.log(id)
+    const og = id
     const ref=doc(this.db, 'AddPlay', id);
     await deleteDoc(ref)
     this.getAddSong()
+    this.showLoading()
+    this.updateDeleteChecker(og)
+    
+  }
+    async updateDeleteChecker(og:any){
+    const ref= doc(this.db,'playlist',og)
+    await updateDoc(ref,{added:false})
+    // console.log(data.);
     
   }
 
+
+  async showLoading() {
+    const loading = await this.loadingCtrl.create({
+      message: 'Deleting PLaylist...',
+      duration: 1000,
+    });
+
+    loading.present();
+  }
 
 
   async setDoc() {
@@ -309,6 +335,7 @@ async openSpotify(trackId:any) {
     window.open(spotifyWebUrl, '_blank');
   }
 }
+
 
 
 

@@ -23,35 +23,25 @@ export class InfoPage implements OnInit {
   instantiated=false;
   constructor() {
     effect(()=>{
-      if(this.instantiated){
-  this.assisted()
-      }else{
-        this.instantiated = true
-      }
-    
+      this.album()
+      this.fera()
+      this.getSongData()
     })
       addIcons({checkmarkCircle,addCircle,playCircle}); }
 
    async ngOnInit() {
-    // this.dataService.openSpotify()
     this.getSongData()
-    
-
-
   }
- async assisted(){
-  this.destiny = await this.album().added
-  console.log('is this empty',this.destiny);
-  
-} 
- 
+  async fera(){
+     this.album()
+  }
+
 
   async getSongData(){
     const id = this.router.snapshot.paramMap.get("id")
-    console.log(id)
     const singleDoc:any = await this.dataService.getSingleData(id)
     this.album.set(singleDoc)
-    console.log(singleDoc)
+
   }
 
 }

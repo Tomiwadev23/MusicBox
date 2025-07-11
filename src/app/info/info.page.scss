@@ -20,13 +20,28 @@
     font-weight:600;
 }
 .addbutn{
-    transition: all ease linear;
+    // transition: all ease linear;
+    animation: nok 1s linear ease-in;
+    animation-play-state:paused ;
+
+
 }
+
 .addbutn:active{
-transform:scale(0.9);
+animation-play-state: running;
+// animation-delay:1s;
+}
+@keyframes nok{
+    from{
+ 
+    }
+    to{
+        transform:scale(0.5) rotate(180deg);
+    }
 }
 .playbtn{
       transition: all ease linear;
+
 
 }
 .playbtn:active{
@@ -69,15 +84,36 @@ ion-icon{
    margin:0;
 
 }
+
+.outside{
+    animation:outsde 0.3s linear;
+    color:#1E90FF;
+
+}
+@keyframes outsde{
+    from{
+        transform:scale(0.7) rotate(-140deg);
+    }
+    to{
+     transform:scale(1) rotate(0deg);
+    }
+}
 .play{
     width:60px;
     height:60px;
     margin-right: 15px;
 }
+.iconic{
+ 
+    display:flex;
+    align-items: center;
+    justify-content: space-between;
+}
 .inner{
     display:flex;
     flex-direction:column;
     margin-left:20px;
+
     
 
 }
