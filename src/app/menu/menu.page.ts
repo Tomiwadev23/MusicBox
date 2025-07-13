@@ -54,6 +54,7 @@ export class MenuPage implements OnInit{
       await this.dataService.getAddSong()
     await this.dataService.updateToPlaylist()
        this.plays=this.dataService.playSong()
+       await this.dataService.getPLaysong()
 
    
    

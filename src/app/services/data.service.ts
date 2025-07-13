@@ -5,6 +5,7 @@ import { onSnapshot, runTransaction } from "firebase/firestore";
 import { Capacitor } from '@capacitor/core';
 import { Browser } from '@capacitor/browser';
 import {ToastController, LoadingController } from '@ionic/angular/standalone';
+import { BehaviorSubject } from 'rxjs';
 
 
 @Injectable({
@@ -35,7 +36,7 @@ export class DataService implements OnInit {
 
   constructor(private db:Firestore) {
 
-
+this.getPlaylists()
   }
   async ngOnInit() {
     await this.getAddSong()
@@ -43,18 +44,28 @@ export class DataService implements OnInit {
     
   }
   
-  async getPlaylists() {
-    const dataRef = collection(this.db, "playlist");
-    const querysnapshot = await getDocs(dataRef);
-    const docsData: any[] = [];
-    querysnapshot.forEach((doc) => {
-      docsData.push(doc.data());
+  // async getPlaylists() {
+  //   const dataRef = collection(this.db, "playlist");
+  //   const querysnapshot = await getDocs(dataRef);
+  //   const docsData: any[] = [];
+  //   querysnapshot.forEach((doc) => {
+  //     docsData.push(doc.data());
 
-      this.playlists.set(docsData.slice(0, 6));
-      console.log(this.playlists())
+  //     this.playlists.set(docsData.slice(0, 6));
+  //     console.log(this.playlists())
+  //   });
+
+  // }
+  getPlaylists() {
+  onSnapshot(collection(this.db, "playlist"), (snapshot) => {
+    const playlists: any[] = [];
+    snapshot.docs.slice(0, 6).forEach(doc => {
+      playlists.push(doc.data());
     });
+    this.playlists.set(playlists);
+  });
+}
 
-  }
 
   async getShowAll() {
     const dataRef = collection(this.db, "playlist");
@@ -119,23 +130,42 @@ export class DataService implements OnInit {
     this.randomSong.set(docsValue);
     console.log(this.randomSong());
   }
+//     getPlaylists() {
+//   onSnapshot(collection(this.db, "playlist"), (snapshot) => {
+//     const playlists: any[] = [];
+//     snapshot.docs.slice(0, 6).forEach(doc => {
+//       playlists.push(doc.data());
+//     });
+//     this.playlists.set(playlists);
+//   });
+// }
+
   async getPLaysong() {
+  
     const dataref = collection(this.db, 'play');
-    const queshot = await getDocs(dataref);
+      onSnapshot(dataref,(snapshot)=>{
     const arr: any[] = [];
-    queshot.forEach((doc) => {
-      arr.push(doc.data());
+    snapshot.forEach((doc) => {
+      arr.push({id:doc.id,...doc.data()});
     })
     this.playSong.set(arr);
     console.log(this.playSong())
 
+
+    })
+   
   }
 
-  async getSingleData(id: any) {
-    const docRef = doc(this.db, 'playlist', id)
-    const querysnapshot = (await getDoc(docRef)).data()
-    return querysnapshot
-  }
+  getSingleData(id: any) {
+    const docRef = doc(this.db, 'playlist', id);
+  const documentData$ = new BehaviorSubject<any>(null); 
+  
+  onSnapshot(docRef, (doc) => {
+    documentData$.next(doc.exists() ? doc.data() : null);
+  });
+  return documentData$; 
+}
+
   async getMaxData(id: any) {
     const ref = doc(this.db, 'random', id)
     const querysnapshot = (await getDoc(ref)).data()
