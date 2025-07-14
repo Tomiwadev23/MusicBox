@@ -144,6 +144,7 @@ export class DataService implements OnInit {
     const ref = doc(this.db, 'random', id)
     const querysnapshot = (await getDoc(ref)).data()
     return querysnapshot
+
   }
 
   async getMultipleData(id: any) {
