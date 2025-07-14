@@ -22,26 +22,46 @@ export class InfoPage implements OnInit {
   destiny:any;
   instantiated=false;
   constructor() {
-    effect(()=>{
-      this.album()
-      this.fera()
-      this.getSongData()
-    })
+    // effect(async (id)=>{
+    //   if(this.instantiated){
+    //     this.album()
+
+    //   }else{
+    //     this.instantiated=true
+    //   }
+    //   this.album()
+    // })
       addIcons({checkmarkCircle,addCircle,playCircle}); }
 
    async ngOnInit() {
-    this.getSongData()
+    //    const id = this.router.snapshot.paramMap.get("id")
+    // const singleDoc:any = await this.dataService.getSingleData(id)
+    // console.log(singleDoc);
+    
+    // this.album.set(singleDoc)
+    this.loadData()
   }
-  async fera(){
-     this.album()
-  }
+  loadData() {
+  const id = this.router.snapshot.paramMap.get('id');
+  this.dataService.getSingleData(id).subscribe((data) => {
+    this.album.set(data); // Updates automatically
+  });
+}
+
+ 
+
+  // async getSongData(){
+  //   const id = this.router.snapshot.paramMap.get("id")
+  //   const singleDoc:any = await this.dataService.getSingleData(id)
+  //   console.log(singleDoc);
+    
+  //   this.album.set(singleDoc)
+
+  // }
 
 
-  async getSongData(){
-    const id = this.router.snapshot.paramMap.get("id")
-    const singleDoc:any = await this.dataService.getSingleData(id)
-    this.album.set(singleDoc)
-
-  }
+  // tryagain(){
+  //   this.getSongData()
+  // }
 
 }
