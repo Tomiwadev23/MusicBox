@@ -6,6 +6,7 @@ import { homeOutline,downloadOutline,personOutline,searchOutline,playCircle, add
 import { addIcons } from 'ionicons';
 import { DataService } from '../services/data.service';
 import { Router } from '@angular/router';
+import { TypesenseService } from '../typesense.service';
 
 @Component({
   selector: 'app-menu',
@@ -23,6 +24,11 @@ export class MenuPage implements OnInit{
   recentSearch:any[]=[];
   kinds:any[]=[];
   amount:any;
+  favorites:any[]=[]
+  podcasts:any[]=[]
+  searchResults: any[] = [];
+  query = '';
+  typesense=inject(TypesenseService)
   
    handleRefresh(event: CustomEvent) {
     setTimeout(() => {
@@ -37,11 +43,11 @@ export class MenuPage implements OnInit{
   loaded =false;
   
   constructor() {
-    effect(()=>{
-      this.dataService.counter()
-       this.dataService.getAddSong()
+    // effect(()=>{
+    // this.dataService.playSong()
+    //    this.dataService.getAddSong
 
-    })
+    // })
       
       addIcons({homeOutline,searchOutline,downloadOutline,albums,addCircle,playCircle,musicalNotes,ellipsisVertical,library,personOutline,});
     }
@@ -52,7 +58,7 @@ export class MenuPage implements OnInit{
       this.loaded = true
     })
       await this.dataService.getAddSong()
-    await this.dataService.updateToPlaylist()
+   
        this.plays=this.dataService.playSong()
        await this.dataService.getPLaysong()
 
@@ -64,8 +70,9 @@ export class MenuPage implements OnInit{
    await this.dataService.getRecommended()
    await this.dataService.getTrendingSong();
    await this.dataService.getRandomSong();
-   await this.dataService.updateToPlaylist()
 await this.dataService.getPLaysong()
+await this.dataService.getFavorite()
+await this.dataService.getPodcast()
 
 
 
@@ -73,10 +80,33 @@ await this.dataService.getPLaysong()
    this.secondMusic = this.dataService.recommendedSongs()
    this.thirdjams= this.dataService.trendingSongs()
    this.fansPage=this.dataService.randomSong()
+   this.favorites = this.dataService.favorites()
+   this.podcasts = this.dataService.podcasts()
    
       this.plays=this.dataService.playSong()
 
 
+  }
+    async search() {
+    try {
+      const searchParameters = {
+        q: this.query,
+        query_by: 'artist,song', // Fields to search
+        per_page: 10
+      };
+console.log(this.query);
+
+      const results = await this.typesense.getClient()
+        .collections('playlist')
+        .documents()
+        .search(searchParameters);
+
+      this.searchResults = results.hits?.map((hit: { document: any; }) => hit.document) || [];
+      console.log(this.searchResults);
+      
+    } catch (error) {
+      console.error('Search error:', error);
+    }
   }
 
  goToAbout(id: any){

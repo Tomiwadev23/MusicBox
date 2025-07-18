@@ -1,13 +1,51 @@
 
 
 <ion-content [fullscreen]="true">
-  <marquee behavior="" direction=""></marquee>
-  <div class="disc">
-    <div class="pics">
+  <div class="intro">
+  <marquee behavior="" direction="left">Back to Black mp3 official audio</marquee>
+  <div class="artist-name">
+    Amy winehouse
+  </div>
+  </div>
+  <div class="overall">
+    <img src="assets/needle.png" alt="" class="needle" style="width:160px;height:180px; position:absolute;right:10px;top:30px;z-index: 999;
+   transform: rotate(100deg); ">
+
+    <div class="disc">
+     
+        <img src="assets/disc.png" alt="">
+         <div class="pics">
+          <img src="assets/roddy.jpeg" alt="">
+  
+         </div>
+  
+    </div>
+  </div>
+
+  <div class="control">
+    <div class="play">
+      <div class="timer">   <span>  {{ currentTimeDisplay }} </span>
+      <span>{{ durationDisplay }}</span></div>
+      <div class="track-bar">
+      <ion-range   [(ngModel)]="currentTime" [max]="duration" (ionChange)="seekAudio()"[disabled]="!duration"></ion-range>
+       <!-- aria-label="Range with ionChange" (ionChange)="onIonChange($event)" -->
+      </div>
+
+      
+
 
     </div>
-egregrhsthfdasdasdfadfadfsddasSDdSAsfbsfffffffffffffffffffffffffffffffffffffffffffergwefe
+    <div class="icons">
+      <div class="back">
+      <img src="assets/black.png" alt="">
+      </div>
+      <div class="ply"><ion-icon [name]="play"(click)="start()"></ion-icon></div>
+<div class="next"><img src="assets/fed.png" alt=""></div>
+
+    </div>
+
   </div>
+
 
  
 </ion-content>

@@ -59,8 +59,8 @@ export class AlertService {
             action: 'delete',
           },
            handler: () => {
-            this.dataService.deletePlaylist(id);
          
+         this.showLoading(id)
              // Call your function here
           },
         },
@@ -82,5 +82,18 @@ export class AlertService {
 
     await actionSheet.present();
   }
+    async showLoading(id:any) {
+      const loading = await this.loadingCtrl.create({
+        message: 'Deleting PLaylist...',
+        duration: 800,
+      });
+  
+      loading.present();
+      setTimeout(()=>{
+    this.dataService.deletePlaylist(id);
+      },1000)
+     
+    }
+  
 
 }

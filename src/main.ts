@@ -10,6 +10,7 @@ import { environment } from './environments/environment.prod';
 import { defineCustomElements } from '@ionic/pwa-elements/loader';
 import { enableProdMode } from '@angular/core';
 import { GoogleAuthProvider } from "firebase/auth";
+import { provideHttpClient } from '@angular/common/http';
 bootstrapApplication(AppComponent, {
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
@@ -18,7 +19,7 @@ bootstrapApplication(AppComponent, {
     provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
     provideFirestore(() => getFirestore()),
     provideAuth(() => getAuth()),
-    { provide: GoogleAuthProvider, useValue: new GoogleAuthProvider() }
+    { provide: GoogleAuthProvider, useValue: new GoogleAuthProvider() }, provideHttpClient(),
   ],
 });
 defineCustomElements(window);

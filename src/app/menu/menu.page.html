@@ -436,21 +436,24 @@
 
   <ion-tab tab="search">
     <ion-content>
-      <ion-searchbar showCancelButton="focus" class="custom" mode="md" aria-placeholder="search"></ion-searchbar>
+      <ion-searchbar showCancelButton="focus" class="custom" mode="md" aria-placeholder="search" [(ngModel)]="query"></ion-searchbar>
       <h4 class="ser">Recent Search...</h4>
       <div class="show-search">
-        @for(search of recentSearch; track search){
+        @for(search of searchResults; track search){
         <div class=" show-item">
           <ion-avatar>
             <img src="{{search.img}}" alt="">
           </ion-avatar>
           <div class="about">
-            <p class="artist-name">{{search.name}}</p>
+            <p class="artist-name">{{search.artist}}</p>
             <img src="assets/three.png" alt="" class="artist-image">
 
           </div>
         </div>
         }
+        <button (click)="search()">
+click me
+        </button>
 
 
 
@@ -559,13 +562,45 @@
         <div class="abut">
           <div class="ko">
               <h1 class="text1">{{play?.theme}}</h1>
-          <p class="text2"><span>{{play.no}}</span>songs</p>
+          <p class="text2"><span>{{this.dataService.counter()}}</span>songs</p>
           <h6 class="text3">Playlist.MusicX</h6>
           </div>
         
         </div>
       </div>
     
+      }
+      </div>
+            <div class="over">
+      @for(fave of favorites; track fave){
+         <div class="contain" (click)=" this.dataService.goToPlaylist($event)">
+        <div class="imag"><img src={{fave?.image}} alt=""></div>
+        <div class="abut">
+          <div class="ko">
+              <h1 class="text1">{{fave?.theme}}</h1>
+          <p class="text2"><span>0</span>song</p>
+          <h6 class="text3">Playlist.MusicX</h6>
+          </div>
+        
+        </div>
+      </div>
+
+      }
+      </div>
+                  <div class="over">
+      @for(pod of podcasts; track pod){
+         <div class="contain" (click)=" this.dataService.goToPlaylist($event)">
+        <div class="imag"><img src={{pod?.image}} alt=""></div>
+        <div class="abut">
+          <div class="ko">
+              <h1 class="text1">{{pod?.theme}}</h1>
+          <p class="text2"><span>0</span>song</p>
+          <h6 class="text3">Playlist.MusicX</h6>
+          </div>
+        
+        </div>
+      </div>
+
       }
       </div>
      

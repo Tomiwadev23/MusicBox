@@ -5,7 +5,10 @@ import { onSnapshot, runTransaction } from "firebase/firestore";
 import { Capacitor } from '@capacitor/core';
 import { Browser } from '@capacitor/browser';
 import {ToastController, LoadingController } from '@ionic/angular/standalone';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { TypesenseService } from '../typesense.service';
+import { musicSchema } from './schema';
+import { HttpClient } from '@angular/common/http';
 
 
 @Injectable({
@@ -15,6 +18,7 @@ export class DataService implements OnInit {
   toastController=inject(ToastController)
   vop=signal<any[]>([])
   varry:any[]=[];
+  typesense=inject(TypesenseService)
 
   router = inject(Router)
   loadingCtrl=inject(LoadingController)
@@ -30,6 +34,10 @@ export class DataService implements OnInit {
   showAddusername = signal<any[]>([])
   counter = signal<any>(0)
   carrierSignal=signal<any>(null)
+  favorites=signal<any>(null)
+  podcasts=signal<any>(null)
+  http=inject(HttpClient)
+  ApiUrl='https://ws.audioscrobbler.com/2.0/?method=chart.gettopartists&api_key=2fdce6c3d7369da33b2b50d04092fc5d&format=json';
 
 
 
@@ -40,8 +48,37 @@ this.getPlaylists()
   }
   async ngOnInit() {
     await this.getAddSong()
+     this.syncCollection('playlist', musicSchema);
   
     
+  }
+
+    getData(){
+    return this.http.get(this.ApiUrl);
+
+  }
+    async syncCollection(collectionName: string, schema: any) {
+    try {
+      // Create collection schema in Typesense
+      await this.typesense.getClient().collections().create(schema);
+      
+      // Set up Firebase listener
+      const colRef = collection(this.db, collectionName);
+      onSnapshot(colRef, async (snapshot) => {
+        const documents = snapshot.docs.map(doc => ({
+          id: doc.id,
+          ...doc.data()
+        }));
+        
+        // Index documents in Typesense
+        await this.typesense.getClient()
+          .collections(collectionName)
+          .documents()
+          .import(documents);
+      });
+    } catch (error) {
+      console.error('Sync error:', error);
+    }
   }
   
   // async getPlaylists() {
@@ -155,6 +192,28 @@ this.getPlaylists()
     })
    
   }
+  async getFavorite(){
+    const dataRef=collection(this.db,'Favorites')
+    const qs = await getDocs(dataRef);
+    const arr:any[]=[];
+    qs.forEach((doc)=>{
+      arr.push(doc.data())
+  })
+this.favorites.set(arr)
+
+  };
+  
+   async getPodcast(){
+    const dataRef=collection(this.db,"Podcasts")
+    const qs = await getDocs(dataRef);
+    const arr:any[]=[];
+    qs.forEach((doc)=>{
+      arr.push(doc.data())
+  })
+this.podcasts.set(arr)
+
+  };
+  
 
   getSingleData(id: any) {
     const docRef = doc(this.db, 'playlist', id);
@@ -237,6 +296,7 @@ this.getPlaylists()
     this.toast()
     // this.changer=true;
     console.log(data)
+    this.getPLaysong()
     this.updateChecker(data)
 
    
@@ -284,9 +344,8 @@ this.getPlaylists()
       arr.push(doc.data())
     })
     this.showplay.set(arr)
-    console.log('fasi',this.showplay());
+
     this.counter.set(arr.length)
-    this.updateToPlaylist()
     this.carrierSignal();
     })
     this.unsubscribeGetAddSong = unsubscribe;
@@ -295,7 +354,7 @@ this.getPlaylists()
   
   
   }
-  // Add this to your component
+
 unsubscribeGetAddSong: any;
 
 ngOnDestroy() {
@@ -303,13 +362,9 @@ ngOnDestroy() {
     this.unsubscribeGetAddSong();
   }
 }
-     async updateToPlaylist(){
-    const ref = doc(this.db,'play','JmPDO5ku25HYP2BSN2QV');
-    await updateDoc(ref,{no:this.counter()})
-    console.log('new method',this.counter());
 
 
-  }
+  
 
 
   async addUsername(uger: any) {
@@ -322,10 +377,8 @@ ngOnDestroy() {
     const og = id
     const ref=doc(this.db, 'AddPlay', id);
     await deleteDoc(ref)
-    this.getAddSong()
-    this.showLoading()
     this.updateDeleteChecker(og)
-    
+    this.getPLaysong()
   }
     async updateDeleteChecker(og:any){
     const ref= doc(this.db,'playlist',og)
@@ -335,14 +388,6 @@ ngOnDestroy() {
   }
 
 
-  async showLoading() {
-    const loading = await this.loadingCtrl.create({
-      message: 'Deleting PLaylist...',
-      duration: 1000,
-    });
-
-    loading.present();
-  }
 
 
   async setDoc() {
