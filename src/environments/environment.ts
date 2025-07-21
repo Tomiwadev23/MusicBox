@@ -11,6 +11,7 @@ export const environment = {
   storageBucket: "musicx-5f562.firebasestorage.app",
   messagingSenderId: "785737592274",
   appId: "1:785737592274:web:91ed0c323bc9df35f82c0b"
+  
 }
 };
 

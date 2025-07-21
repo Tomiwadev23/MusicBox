@@ -7,6 +7,8 @@ import { addIcons } from 'ionicons';
 import { DataService } from '../services/data.service';
 import { Router } from '@angular/router';
 import { TypesenseService } from '../typesense.service';
+import { environment } from 'src/environments/environment';
+import {Response, Iuser } from '../iuser';
 
 @Component({
   selector: 'app-menu',
@@ -17,7 +19,7 @@ import { TypesenseService } from '../typesense.service';
 })
 export class MenuPage implements OnInit{
   plays:any[]=[]
-  tommySongs : any[] = [];
+  tommySongs :any[]=[];
   secondMusic : any[] = [];
   thirdjams : any[] = [];
   fansPage : any[] = [];
@@ -29,6 +31,7 @@ export class MenuPage implements OnInit{
   searchResults: any[] = [];
   query = '';
   typesense=inject(TypesenseService)
+  
   
    handleRefresh(event: CustomEvent) {
     setTimeout(() => {
@@ -48,7 +51,7 @@ export class MenuPage implements OnInit{
     //    this.dataService.getAddSong
 
     // })
-      
+      // this.getRealData
       addIcons({homeOutline,searchOutline,downloadOutline,albums,addCircle,playCircle,musicalNotes,ellipsisVertical,library,personOutline,});
     }
 
@@ -61,6 +64,7 @@ export class MenuPage implements OnInit{
    
        this.plays=this.dataService.playSong()
        await this.dataService.getPLaysong()
+      //  await this.getRealData()
 
    
    
@@ -73,6 +77,8 @@ export class MenuPage implements OnInit{
 await this.dataService.getPLaysong()
 await this.dataService.getFavorite()
 await this.dataService.getPodcast()
+await this.dataService.getData()
+// await  this.getRealData()
 
 
 
@@ -87,27 +93,53 @@ await this.dataService.getPodcast()
 
 
   }
-    async search() {
-    try {
-      const searchParameters = {
-        q: this.query,
-        query_by: 'artist,song', // Fields to search
-        per_page: 10
-      };
-console.log(this.query);
-
-      const results = await this.typesense.getClient()
-        .collections('playlist')
-        .documents()
-        .search(searchParameters);
-
-      this.searchResults = results.hits?.map((hit: { document: any; }) => hit.document) || [];
-      console.log(this.searchResults);
+//   getRealData(){
+//     this.dataService.getData().subscribe({
+// next: (data :Response)=>{
+//   this.= data.artists.artist
+//   console.log(data.artists.artist);
+//   console.log(data);
+  
+  
+// }
       
-    } catch (error) {
-      console.error('Search error:', error);
-    }
-  }
+  //   })
+  // }
+  //   async onSearch(event: Event) {
+  //   const query = (event.target as HTMLInputElement).value;
+  //   if (query.length > 2) { // Only search after 3 characters
+  //     const response = await this.typesense.searchCollection(
+  //    'playlist',
+  //       query
+  //     );
+  //     this.tommySongs = response.hits || [];
+  //     console.log(query);
+  //     console.log(response.hits);
+      
+      
+  //   }
+  // }
+//     async search() {
+//     try {
+//       const searchParameters = {
+//         q: this.query,
+//         query_by: 'artist,song', // Fields to search
+//         per_page: 10
+//       };
+// console.log(this.query);
+
+//       const results = await this.typesense.getClient()
+//         .collections('playlist')
+//         .documents()
+//         .search(searchParameters);
+
+//       this.searchResults = results.hits?.map((hit: { document: any; }) => hit.document) || [];
+//       console.log(this.searchResults);
+      
+//     } catch (error) {
+//       console.error('Search error:', error);
+//     }
+//   }
 
  goToAbout(id: any){
   console.log(id)

@@ -9,6 +9,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { TypesenseService } from '../typesense.service';
 import { musicSchema } from './schema';
 import { HttpClient } from '@angular/common/http';
+import { Response,Iuser } from '../iuser';
 
 
 @Injectable({
@@ -48,38 +49,39 @@ this.getPlaylists()
   }
   async ngOnInit() {
     await this.getAddSong()
-     this.syncCollection('playlist', musicSchema);
+    this.getData()
+    //  this.syncCollection('playlist', musicSchema);
   
     
   }
 
-    getData(){
-    return this.http.get(this.ApiUrl);
+    getData():Observable<Response>{
+    return this.http.get<Response>(this.ApiUrl);
 
   }
-    async syncCollection(collectionName: string, schema: any) {
-    try {
-      // Create collection schema in Typesense
-      await this.typesense.getClient().collections().create(schema);
+  //   async syncCollection(collectionName: string, schema: any) {
+  //   try {
+  //     // Create collection schema in Typesense
+  //     await this.typesense.getClient().collections().create(schema);
       
-      // Set up Firebase listener
-      const colRef = collection(this.db, collectionName);
-      onSnapshot(colRef, async (snapshot) => {
-        const documents = snapshot.docs.map(doc => ({
-          id: doc.id,
-          ...doc.data()
-        }));
+  //     // Set up Firebase listener
+  //     const colRef = collection(this.db, collectionName);
+  //     onSnapshot(colRef, async (snapshot) => {
+  //       const documents = snapshot.docs.map(doc => ({
+  //         id: doc.id,
+  //         ...doc.data()
+  //       }));
         
-        // Index documents in Typesense
-        await this.typesense.getClient()
-          .collections(collectionName)
-          .documents()
-          .import(documents);
-      });
-    } catch (error) {
-      console.error('Sync error:', error);
-    }
-  }
+  //       // Index documents in Typesense
+  //       await this.typesense.getClient()
+  //         .collections(collectionName)
+  //         .documents()
+  //         .import(documents);
+  //     });
+  //   } catch (error) {
+  //     console.error('Sync error:', error);
+  //   }
+  // }
   
   // async getPlaylists() {
   //   const dataRef = collection(this.db, "playlist");
@@ -242,6 +244,12 @@ this.podcasts.set(arr)
     const docr = doc(this.db, 'trending', id)
     const qshot = (await getDoc(docr)).data()
     return qshot
+  }
+  async getAudio(id:any){
+    const ref =doc(this.db,'playlist',id)
+    const query = (await getDoc(ref)).data()
+    return query
+
   }
   myArtist: string = ''
   mySong: string = ''

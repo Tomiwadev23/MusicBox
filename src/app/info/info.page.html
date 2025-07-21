@@ -33,7 +33,7 @@
                   <ion-icon name="add-circle" slot="end" class="addbutn"></ion-icon>
                 </div>
         }
-  <div class="play" (click)="this.dataService.openSpotify(album()?.track)" >
+  <div class="play" (click)="goToAudio(album()?.id)" >
         <ion-icon name="play-circle" slot="end" class="playbtn"></ion-icon>
         <!-- (click)="goToTry()" -->
 

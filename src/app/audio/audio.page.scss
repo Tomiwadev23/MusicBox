@@ -49,6 +49,12 @@
 
 
  }
+ .fun{
+  display: flex;
+  flex-direction: row;
+  align-items:center;
+  width: 100%;
+ }
  .pics{
   overflow:hidden;
   img{
@@ -116,7 +122,7 @@ margin:0 auto;
  }
 .overall{
   margin-top: 80px;
-  background-color: red;
+  // background-color: red;
 
 
  }

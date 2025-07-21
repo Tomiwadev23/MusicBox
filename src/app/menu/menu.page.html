@@ -436,7 +436,7 @@
 
   <ion-tab tab="search">
     <ion-content>
-      <ion-searchbar showCancelButton="focus" class="custom" mode="md" aria-placeholder="search" [(ngModel)]="query"></ion-searchbar>
+      <ion-searchbar showCancelButton="focus" class="custom" mode="md" aria-placeholder="search"></ion-searchbar>
       <h4 class="ser">Recent Search...</h4>
       <div class="show-search">
         @for(search of searchResults; track search){
@@ -451,7 +451,7 @@
           </div>
         </div>
         }
-        <button (click)="search()">
+        <button>
 click me
         </button>
 

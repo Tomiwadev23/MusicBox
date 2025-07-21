@@ -16,6 +16,7 @@ import { DataService } from '../services/data.service';
 })
 export class InfoPage implements OnInit {
   router = inject(ActivatedRoute)
+  route=inject(Router)
   dataService = inject(DataService)
   album = signal<any>(null)
   camel:any;
@@ -46,6 +47,12 @@ export class InfoPage implements OnInit {
   this.dataService.getSingleData(id).subscribe((data) => {
     this.album.set(data); // Updates automatically
   });
+}
+goToAudio(id:any){
+  console.log(id);
+  
+  this.route.navigate(['audio',id])
+
 }
 
  

@@ -1,19 +1,25 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent,IonRange, IonHeader, IonTitle, IonToolbar,IonProgressBar,IonIcon } from '@ionic/angular/standalone';
+import { IonContent,IonRange, IonHeader,IonBackButton, IonTitle, IonToolbar,IonProgressBar,IonIcon, IonButtons } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import {pause, play,playSkipBack} from 'ionicons/icons';
+import { ActivatedRoute } from '@angular/router';
+import { DataService } from '../services/data.service';
+
 
 @Component({
   selector: 'app-audio',
   templateUrl: './audio.page.html',
   styleUrls: ['./audio.page.scss'],
   standalone: true,
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar,IonRange, CommonModule,IonIcon, FormsModule,IonProgressBar]
+  imports: [IonButtons,IonBackButton, IonContent, IonHeader, IonTitle, IonToolbar,IonRange, CommonModule,IonIcon, FormsModule,IonProgressBar]
 })
 export class AudioPage implements OnInit {
+  route=inject(ActivatedRoute)
+  dataService=inject(DataService)
   play='play'
+  great=signal<any>(null)
   
   audio: HTMLAudioElement;
   currentTime = 0;
@@ -77,6 +83,11 @@ this.audio.play()
     }
 
     
+  }
+  goData(){
+    const id = this.route.snapshot.paramMap.get('id')
+    const ref = this.dataService.getAudio(id)
+    this.great.set(ref)
   }
 
 }
